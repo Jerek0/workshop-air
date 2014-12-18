@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="FlexBuildConfigurationManager" active="workshop-air">
+    <configurations>
+      <configuration name="workshop-air" target-platform="Mobile" pure-as="true" main-class="fr.gobelins.workshop.Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin">
+        <dependencies target-player="15.0">
+          <entries>
+            <entry library-id="173cf80e-80de-4de6-acec-3ad37170c814">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="FlexAirSDK" />
+        </dependencies>
+        <compiler-options />
+        <packaging-air-desktop />
+        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/assets/Main-app.xml" package-file-name="Main" />
+        <packaging-ios package-file-name="Main" />
+      </configuration>
+    </configurations>
+    <compiler-options />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="FlexAirSDK" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="173cf80e-80de-4de6-acec-3ad37170c814" />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs/swc" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/libs/swc" recursive="false" />
+      </library>
+    </orderEntry>
+  </component>
+</module>
