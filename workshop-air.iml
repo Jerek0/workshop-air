@@ -13,7 +13,11 @@
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
-        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/assets/Main-app.xml" package-file-name="Main" />
+        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/assets/Main-app.xml" package-file-name="Main">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/bin/medias" path-in-package="medias" />
+          </files-to-package>
+        </packaging-android>
         <packaging-ios package-file-name="Main" />
       </configuration>
     </configurations>

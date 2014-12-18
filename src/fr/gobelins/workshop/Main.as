@@ -11,6 +11,7 @@ package fr.gobelins.workshop {
     import starling.utils.ScaleMode;
     import starling.utils.VAlign;
 
+    [SWF(frameRate="60", backgroundColor="#000000")]
     public class Main extends Sprite {
 
         private var _starling:Starling;
@@ -28,7 +29,7 @@ package fr.gobelins.workshop {
             Starling.multitouchEnabled = false;
             Starling.handleLostContext = true;
 
-            _starling = new Starling(Game, stage, viewPort);
+            _starling = new Starling(App, stage, viewPort);
             _starling.addEventListener(Event.ROOT_CREATED, _onRootCreated);
             _starling.stage.stageWidth = _stageWidth;
             _starling.stage.stageHeight = stage.fullScreenHeight / stage.fullScreenWidth * _stageWidth;
@@ -37,7 +38,7 @@ package fr.gobelins.workshop {
         }
 
         private function _onRootCreated(event:Event):void {
-            (_starling.root as Game).init(_isHD);
+            (_starling.root as App).init(_isHD);
         }
     }
 }
