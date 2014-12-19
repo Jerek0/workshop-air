@@ -16,7 +16,7 @@ import starling.utils.AssetManager;
 
 public class App extends Sprite {
 
-        private var _assets:AssetManager;
+        private static var _assets:AssetManager;
         private var _pageManager:PageManager;
 
         public function App() {
@@ -67,7 +67,11 @@ public class App extends Sprite {
         }
 
         private function _build():void {
-            _pageManager = new PageManager(stage, _assets);
+            _pageManager = new PageManager(stage);
         }
+
+    public static function get assets():AssetManager {
+        return _assets;
     }
+}
 }

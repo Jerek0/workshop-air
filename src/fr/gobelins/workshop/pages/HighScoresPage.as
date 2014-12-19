@@ -2,24 +2,26 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-import starling.display.Button;
-import starling.events.Event;
-import starling.text.TextField;
-import starling.utils.AssetManager;
+    import fr.gobelins.workshop.App;
+
+    import starling.display.Button;
+    import starling.events.Event;
+    import starling.text.TextField;
 
     public class HighScoresPage extends APage {
-        public function HighScoresPage(assets:AssetManager) {
-            super(assets);
+        public function HighScoresPage() {
+            super();
         }
 
         protected override function _onAddedToStage(event:Event):void {
+            // ##### TEMPORARY
             var text:TextField = new TextField(stage.stageWidth, 100, "HIGHSCORES PAGE");
             text.y = stage.stageHeight / 2 - text.height / 2;
             text.color = 0xFFFFFF;
             text.fontSize = 48;
             addChild(text);
 
-            var btnHome : Button = new Button(_assets.getTexture("btnHome"));
+            var btnHome : Button = new Button(App.assets.getTexture("btnHome"));
             btnHome.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (btnHome.width / 2);
             btnHome.y = text.y + text.height + 100;
             btnHome.addEventListener(Event.TRIGGERED, _onHomeTriggered);

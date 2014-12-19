@@ -1,7 +1,7 @@
 /**
  * Created by jminie on 16/12/2014.
  */
-package fr.gobelins.workshop.slider {
+package fr.gobelins.workshop.util.slider {
     import flash.geom.Point;
 
 import starling.animation.Transitions;
