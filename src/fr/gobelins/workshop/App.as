@@ -5,6 +5,9 @@ package fr.gobelins.workshop {
 
 import flash.filesystem.File;
 
+import fr.gobelins.workshop.pages.PageManager;
+import fr.gobelins.workshop.util.ParallaxBackground;
+
 import starling.display.Image;
 
 import starling.display.Quad;
@@ -14,6 +17,7 @@ import starling.utils.AssetManager;
 public class App extends Sprite {
 
         private var _assets:AssetManager;
+        private var _pageManager:PageManager;
 
         public function App() {
             super();
@@ -35,6 +39,15 @@ public class App extends Sprite {
             _assets.enqueue(mediasFolder.resolvePath("thirdPlan.png"));
             _assets.enqueue(mediasFolder.resolvePath("farestPlan.png"));
             _assets.enqueue(mediasFolder.resolvePath("logo.png"));
+            _assets.enqueue(mediasFolder.resolvePath("btnDemarrer.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnHighScores.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnHome.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnSkip.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("slide001.png"));
+            _assets.enqueue(mediasFolder.resolvePath("slide002.png"));
+            _assets.enqueue(mediasFolder.resolvePath("slide003.png"));
+            _assets.enqueue(mediasFolder.resolvePath("dotInactive.png"));
+            _assets.enqueue(mediasFolder.resolvePath("dotActive.png"));
 
 
             var loading:Quad = new Quad(1, stage.stageHeight, 0x333333);
@@ -54,23 +67,7 @@ public class App extends Sprite {
         }
 
         private function _build():void {
-            
-            var background : Image = new Image(_assets.getTexture("background"));
-            addChild(background);
-
-            var farestPlan : ParallaxBackground = new ParallaxBackground(_assets.getTexture("farestPlan"), 18);
-            addChild(farestPlan);
-
-            var thirdPlan : ParallaxBackground = new ParallaxBackground(_assets.getTexture("thirdPlan"),6);
-            addChild(thirdPlan);
-
-            var secondPlan : ParallaxBackground = new ParallaxBackground(_assets.getTexture("secondPlan"), 2);
-            addChild(secondPlan);
-
-            var logo : Image = new Image(_assets.getTexture("logo"));
-            logo.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (logo.width / 2);
-            logo.y = 100;
-            addChild(logo);
+            _pageManager = new PageManager(stage, _assets);
         }
     }
 }

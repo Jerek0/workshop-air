@@ -1,7 +1,7 @@
 /**
  * Created by jerek0 on 18/12/2014.
  */
-package fr.gobelins.workshop {
+package fr.gobelins.workshop.util {
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
