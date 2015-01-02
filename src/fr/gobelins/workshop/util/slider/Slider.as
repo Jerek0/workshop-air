@@ -26,8 +26,6 @@ public class Slider extends Sprite {
         private var _touchBeginGlobal:Point;
         private var _currentSlide:Number;
 
-        private var _startTime;
-
         public function Slider(width:int) {
             super();
             _slideWidth = width;
@@ -137,7 +135,7 @@ public class Slider extends Sprite {
             if(touchEnds) {
                 // Here we use the global position (because the local one will always be the same, because of the touchmoving processing)
                 var globalPos:Point = touchEnds.getLocation(stage);
-                var offsetX = globalPos.x - _touchBeginGlobal.x; // This tells us if the offset is left or right
+                var offsetX : Number = globalPos.x - _touchBeginGlobal.x; // This tells us if the offset is left or right
 
                 if(offsetX < -(_slideWidth*0.2)) {
                     goToNext();

@@ -2,28 +2,30 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-import fr.gobelins.workshop.App;
-import fr.gobelins.workshop.game.GameManager;
-    import fr.gobelins.workshop.util.tutorial.Tutorial;
-    import fr.gobelins.workshop.util.tutorial.TutorialEvent;
+    import fr.gobelins.workshop.App;
+    import fr.gobelins.workshop.constants.PageID;
+    import fr.gobelins.workshop.events.PagesEvent;
+    import fr.gobelins.workshop.game.GameManager;
+    import fr.gobelins.workshop.util.Tutorial;
+    import fr.gobelins.workshop.events.TutorialEvent;
 
     import starling.display.Button;
     import starling.display.Sprite;
     import starling.events.Event;
 
-
     public class GamePage extends APage {
 
         private var _tutorial:Sprite;
+        private var _gameManager:GameManager;
 
         public function GamePage() {
             super();
         }
 
-        protected override function _onAddedToStage(event:Event):void {
-
+        protected override function _init():void {
             // GAME
-            var game : GameManager = new GameManager(this);
+            _gameManager = new GameManager(this);
+            _gameManager.pause();
 
             var btnHighScores : Button = new Button(App.assets.getTexture("btnHighScores"));
             btnHighScores.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (btnHighScores.width / 2);
@@ -41,10 +43,11 @@ import fr.gobelins.workshop.game.GameManager;
 
         private function _onSkip(event:Event):void {
             removeChild(_tutorial);
+            _gameManager.play();
         }
 
         private function _onHighScoresTriggered(event:Event):void {
-            dispatchEvent(new PagesEvent(PagesEvent.GAME_TO_HIGHSCORES));
+            dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HIGHSCORES));
         }
     }
 }

@@ -4,6 +4,9 @@
 package fr.gobelins.workshop.pages {
 
 import fr.gobelins.workshop.App;
+import fr.gobelins.workshop.constants.PageID;
+import fr.gobelins.workshop.events.PagesEvent;
+import fr.gobelins.workshop.game.character.Character;
 import fr.gobelins.workshop.util.ParallaxBackground;
 
 import starling.display.Button;
@@ -17,7 +20,7 @@ import starling.events.Event;
             super();
         }
 
-        protected override function _onAddedToStage(event:Event):void {
+        protected override function _init():void {
 
             // ###### DECOR
             var background : Image = new Image(App.assets.getTexture("background"));
@@ -31,6 +34,14 @@ import starling.events.Event;
 
             var secondPlan : ParallaxBackground = new ParallaxBackground(App.assets.getTexture("secondPlan"), 2);
             addChild(secondPlan);
+
+            var character : Character = new Character();
+            character.x = 200;
+            addChild(character);
+            character.animate();
+            character.play();
+            character.size = 2.5;
+            character.y = stage.stageHeight - character.height - 100;
 
             // ###### UI
             var logo : Image = new Image(App.assets.getTexture("logo"));
@@ -52,11 +63,11 @@ import starling.events.Event;
         }
 
         private function _onHighScoresTriggered(event:Event):void {
-            dispatchEvent(new PagesEvent(PagesEvent.HOME_TO_HIGHSCORES));
+            dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HIGHSCORES));
         }
 
         private function _onPlayTriggered(event:Event):void {
-            dispatchEvent(new PagesEvent(PagesEvent.HOME_TO_PLAY));
+            dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.GAME));
         }
     }
 }

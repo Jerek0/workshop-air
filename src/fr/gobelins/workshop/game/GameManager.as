@@ -8,12 +8,21 @@ package fr.gobelins.workshop.game {
 
     public class GameManager extends EventDispatcher {
 
-        public function GameManager(stage:Sprite) {
+        private var _game:Game;
+
+        public function GameManager(holder:Sprite) {
             super();
 
-            var game = new Game();
-            stage.addChildAt(game, 0);
+            _game = new Game();
+            holder.addChild(_game);
+        }
 
+        public function pause():void {
+           _game.pause();
+        }
+
+        public function play():void {
+            _game.play();
         }
     }
 }

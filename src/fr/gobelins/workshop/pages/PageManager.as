@@ -2,57 +2,63 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-    import starling.display.Stage;
+import fr.gobelins.workshop.constants.PageID;
+import fr.gobelins.workshop.events.PagesEvent;
+
+import starling.core.Starling;
+
+import starling.display.Sprite;
     import starling.events.EventDispatcher;
-    import starling.utils.AssetManager;
 
     public class PageManager extends EventDispatcher {
 
-        private var _stage:Stage;
+        private var _holder:Sprite;
 
-        private var _homePage:APage;
-        private var _gamePage:APage;
-        private var _highScoresPage:APage;
+        private var _currentPage:APage;
 
-        public function PageManager(stage:Stage) {
+        public function PageManager(holder:Sprite) {
             super();
 
-            _stage = stage;
+            _holder = holder;
 
-            // HOME
-            _homePage = new HomePage();
-            _homePage.addEventListener(PagesEvent.HOME_TO_PLAY, _homeToPlay);
-            _homePage.addEventListener(PagesEvent.HOME_TO_HIGHSCORES, _homeToHighScores);
-
-            // GAME
-            _gamePage = new GamePage();
-            _gamePage.addEventListener(PagesEvent.GAME_TO_HIGHSCORES, _gameToHighScores);
-
-            // HIGHSCORES
-            _highScoresPage = new HighScoresPage();
-            _highScoresPage.addEventListener(PagesEvent.HIGHSCORES_TO_HOME, _highScoresToHome);
-
-            _stage.addChildAt(_homePage,0);
+            // HOME par défault
+            _addPage(PageID.HOME);
         }
 
-        private function _gameToHighScores(event:PagesEvent):void {
-            _stage.removeChild(_gamePage);
-            _stage.addChildAt(_highScoresPage,0);
+        private function _onChangePage(event:PagesEvent):void {
+            var transitionPage : TransitionPage = new TransitionPage();
+            _holder.addChild(transitionPage);
+
+            Starling.juggler.delayCall(function():void {
+                _removePage();
+                _addPage(event.idPage);
+            }, 0.1);
+
+            Starling.juggler.delayCall(function():void {
+                _holder.removeChild(transitionPage, true);
+                transitionPage = null;
+            }, 0.5);
         }
 
-        private function _homeToHighScores(event:PagesEvent):void {
-            _stage.removeChild(_homePage);
-            _stage.addChildAt(_highScoresPage,0);
+        private function _addPage(idPage:String):void {
+            switch(idPage) {
+                case PageID.HOME:
+                    _currentPage = new HomePage();
+                    break;
+                case PageID.GAME:
+                    _currentPage = new GamePage();
+                    break;
+                case PageID.HIGHSCORES:
+                    _currentPage = new HighScoresPage();
+                    break;
+            }
+            _holder.addChildAt(_currentPage, 0);
+            _currentPage.addEventListener(PagesEvent.CHANGE, _onChangePage);
         }
 
-        private function _highScoresToHome(event:PagesEvent):void {
-            _stage.removeChild(_highScoresPage);
-            _stage.addChildAt(_homePage,0);
-        }
-
-        private function _homeToPlay(event:PagesEvent):void {
-            _stage.removeChild(_homePage);
-            _stage.addChildAt(_gamePage,0);
+        private function _removePage():void {
+            _currentPage.removeEventListener(PagesEvent.CHANGE, _onChangePage);
+            _holder.removeChild(_currentPage,true);
         }
     }
 }

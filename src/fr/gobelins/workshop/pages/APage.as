@@ -2,25 +2,30 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-import fr.gobelins.workshop.App;
+
 
 import starling.display.Sprite;
     import starling.events.Event;
-    import starling.utils.AssetManager;
 
     public class APage extends Sprite {
+
+        private var _isInitialised:Boolean;
 
         public function APage() {
             super();
 
             addEventListener(Event.ADDED_TO_STAGE, _onAddedToStage);
-            addEventListener(Event.REMOVED_FROM_STAGE, _onRemovedFromStage);
         }
 
-        private function _onRemovedFromStage(event:Event):void {
-            removeChildren();
+        private function _onAddedToStage(event:Event):void {
+            if(!_isInitialised) {
+                _init();
+                _isInitialised = true;
+            }
         }
 
-        protected function _onAddedToStage(event:Event):void { }
+        protected function _init():void {
+            trace("Init APage");
+        }
     }
 }

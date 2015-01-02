@@ -3,8 +3,10 @@
  */
 package fr.gobelins.workshop.pages {
     import fr.gobelins.workshop.App;
+import fr.gobelins.workshop.constants.PageID;
+import fr.gobelins.workshop.events.PagesEvent;
 
-    import starling.display.Button;
+import starling.display.Button;
     import starling.events.Event;
     import starling.text.TextField;
 
@@ -13,7 +15,7 @@ package fr.gobelins.workshop.pages {
             super();
         }
 
-        protected override function _onAddedToStage(event:Event):void {
+        protected override function _init():void {
             // ##### TEMPORARY
             var text:TextField = new TextField(stage.stageWidth, 100, "HIGHSCORES PAGE");
             text.y = stage.stageHeight / 2 - text.height / 2;
@@ -29,7 +31,7 @@ package fr.gobelins.workshop.pages {
         }
 
         private function _onHomeTriggered(event:Event):void {
-            dispatchEvent(new PagesEvent(PagesEvent.HIGHSCORES_TO_HOME));
+            dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HOME));
         }
     }
 }

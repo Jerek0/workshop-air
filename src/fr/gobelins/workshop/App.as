@@ -6,9 +6,6 @@ package fr.gobelins.workshop {
 import flash.filesystem.File;
 
 import fr.gobelins.workshop.pages.PageManager;
-import fr.gobelins.workshop.util.ParallaxBackground;
-
-import starling.display.Image;
 
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -49,6 +46,9 @@ public class App extends Sprite {
             _assets.enqueue(mediasFolder.resolvePath("dotInactive.png"));
             _assets.enqueue(mediasFolder.resolvePath("dotActive.png"));
 
+            _assets.enqueue(mediasFolder.resolvePath("dino.png"));
+            _assets.enqueue(mediasFolder.resolvePath("dino.xml"));
+
 
             var loading:Quad = new Quad(1, stage.stageHeight, 0x333333);
             loading.x = 0; loading.y = 0;
@@ -59,15 +59,16 @@ public class App extends Sprite {
 
                 loading.width = stage.stageWidth*ratio;
 
-                if(ratio == 1.0) {
-                    removeChild(loading);
+                if(ratio >= 1.0) {
+                    removeChild(loading, true);
+                    loading = null;
                     _build();
                 }
             });
         }
 
         private function _build():void {
-            _pageManager = new PageManager(stage);
+            _pageManager = new PageManager(this);
         }
 
     public static function get assets():AssetManager {
