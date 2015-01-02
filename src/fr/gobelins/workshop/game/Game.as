@@ -5,6 +5,7 @@ package fr.gobelins.workshop.game {
     import fr.gobelins.workshop.App;
 import fr.gobelins.workshop.game.character.Character;
 import fr.gobelins.workshop.constants.Settings;
+import fr.gobelins.workshop.game.level.Map;
 import fr.gobelins.workshop.util.ParallaxBackground;
 
     import starling.display.Image;
@@ -42,6 +43,13 @@ import starling.text.TextField;
             for each(var parallax:ParallaxBackground in _scene)
                 addChild(parallax);
 
+            // MAP
+
+            var map:Map = new Map("medias/map_2.json");
+            addChild(map);
+            map.y = 80;
+            map.x = 0;
+
             // CHARACTER
             _character = new Character();
             addChild(_character);
@@ -50,9 +58,7 @@ import starling.text.TextField;
             _character.x = 80;
             _characterGravity = new GravityManager(_character, _character.y);
 
-
             this.addEventListener(TouchEvent.TOUCH, _onTouch);
-
         }
 
         private function _onTouch(event:TouchEvent):void {

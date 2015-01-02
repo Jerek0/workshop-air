@@ -39,6 +39,7 @@ package fr.gobelins.workshop.pages {
             _tutorial.addEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onSkip);
             addChild(_tutorial);
 
+            //_onSkip(new TutorialEvent(TutorialEvent.TUTORIAL_SKIPPED));
         }
 
         private function _onSkip(event:Event):void {

@@ -14,11 +14,10 @@ public class GravityManager implements IAnimatable{
 
     private var _ground:int;
     private var _gravity:int;
-    private var _friction:Number;
 
     private var _velY:Number = 0;
 
-    public function GravityManager(entity:Sprite, ground:int = 50, gravity:int = 2) {
+    public function GravityManager(entity:Sprite, ground:int = 50, gravity:int = 3000) {
 
         _entity = entity;
 
@@ -31,18 +30,20 @@ public class GravityManager implements IAnimatable{
     }
 
     private function _onJump(event:CharacterEvent):void {
-        if(_entity.y == _ground) _velY = -40;
+        if(_entity.y == _ground) _velY = -1500;
     }
 
     public function advanceTime(time:Number):void {
-        _entity.y += _velY;
+        _entity.y += _velY * time;
 
-        if(_entity.y < _ground) _velY += _gravity;
+        if(_entity.y < _ground) _velY += _gravity * time;
         else {
             _velY = 0;
             _entity.y = _ground;
             _entity.dispatchEvent(new CharacterEvent(CharacterEvent.LANDED));
         }
+
+        //trace(time);
     }
 }
 }
