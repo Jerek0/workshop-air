@@ -8,7 +8,7 @@ import starling.animation.IAnimatable;
 import starling.core.Starling;
 import starling.display.Sprite;
 
-public class GravityManager implements IAnimatable{
+public class GravityManager implements IAnimatable, IGameEntity{
 
     private var _entity:Sprite;
 
@@ -23,8 +23,6 @@ public class GravityManager implements IAnimatable{
 
         _ground = ground;
         _gravity = gravity;
-
-        Starling.juggler.add(this);
 
         _entity.addEventListener(CharacterEvent.JUMP, _onJump);
     }
@@ -44,6 +42,14 @@ public class GravityManager implements IAnimatable{
         }
 
         //trace(time);
+    }
+
+    public function play():void {
+        Starling.juggler.add(this);
+    }
+
+    public function pause():void {
+        Starling.juggler.remove(this);
     }
 }
 }

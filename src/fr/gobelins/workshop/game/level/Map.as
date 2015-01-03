@@ -2,74 +2,64 @@
  * Created by jerek0 on 19/12/2014.
  */
 package fr.gobelins.workshop.game.level {
-import fr.gobelins.workshop.events.GameEvent;
-import fr.gobelins.workshop.game.IGameEntity;
-import fr.gobelins.workshop.game.level.entities.Point;
+    import flash.geom.Rectangle;
+
+    import fr.gobelins.workshop.events.CollisionEvent;
+    import fr.gobelins.workshop.events.GameEvent;
+    import fr.gobelins.workshop.game.IGameEntity;
+    import fr.gobelins.workshop.game.character.Character;
+    import fr.gobelins.workshop.game.level.entities.AObstacle;
+    import fr.gobelins.workshop.game.level.entities.Bonus;
+    import fr.gobelins.workshop.game.level.entities.Carapace;
+    import fr.gobelins.workshop.game.level.entities.Champi;
+    import fr.gobelins.workshop.game.level.entities.ObstacleAir;
+    import fr.gobelins.workshop.game.level.entities.Point;
+    import fr.gobelins.workshop.game.level.entities.factories.BonusFactory;
+    import fr.gobelins.workshop.game.level.entities.factories.CarapaceFactory;
+    import fr.gobelins.workshop.game.level.entities.factories.ChampiFactory;
+    import fr.gobelins.workshop.game.level.entities.factories.ObstacleAirFactory;
     import fr.gobelins.workshop.game.level.entities.factories.PointFactory;
 
-import starling.animation.IAnimatable;
-import starling.core.Starling;
-
-import starling.display.Sprite;
-    import starling.events.Event;
+    import starling.animation.IAnimatable;
+    import starling.core.Starling;
+    import starling.display.Sprite;
 
     public class Map extends Sprite implements IAnimatable, IGameEntity {
 
         private var _level:Object;
+        private var _player:Character = null;
 
         private var _pointFactory:PointFactory;
-        private var _pointsUsed:Vector.<Point>;
+        private var _bonusFactory:BonusFactory;
+        private var _obstacleAirFactory:ObstacleAirFactory;
+        private var _champiFactory:ChampiFactory;
+        private var _carapaceFactory:CarapaceFactory;
 
         private var _colsShowed:Array;
-
         private var _nextColToShow:int = 0;
         private var _nextColToHide:int = 0;
+
+        private var _nextColToCheckCollisions:int = 0;
+        private var _lastColToCheckCollisions:int = 0;
 
         public function Map(level:Object) {
             super();
             _level = level;
 
             _pointFactory = new PointFactory(27);
-            _pointsUsed = new Vector.<Point>();
+            _bonusFactory = new BonusFactory();
+            _obstacleAirFactory = new ObstacleAirFactory(10);
+            _champiFactory = new ChampiFactory(10);
+            _carapaceFactory = new CarapaceFactory(10);
 
             _colsShowed = new Array();
-
-            addEventListener(Event.ADDED_TO_STAGE, _onAddedToStage);
-        }
-
-        private function _onAddedToStage(event:Event):void {
-            var colCPT = 0;
-            var rowCPT = 0;
-
-            /*var pointFactory:PointFactory = new PointFactory(20);
-            var pointsUsed:Vector.<Point> = new Vector.<Point>();
-
-            for each(var col:Array in _level.layers[0].data) {
-                for each(var id:int in col) {
-                    if(id == 3) {
-                        var tile = pointFactory.getPoint();
-                        pointsUsed.push(tile);
-                    }
-                    else {
-                        var tile:Tile = new Tile();
-                    }
-
-                    addChild(tile);
-                    tile.x = (colCPT % _level.layers[0].width) * _level.tilewidth;
-                    tile.y = (rowCPT % _level.layers[0].height) * _level.tilewidth;
-
-                    rowCPT++;
-                }
-                rowCPT = 0;
-                colCPT++;
-                if(colCPT > 18) break;
-            }*/
         }
 
         public function advanceTime(time:Number):void {
             this.x -= 640 * time;
 
             _update();
+            if(_player) checkCollisions();
         }
 
         private function _update():void {
@@ -95,17 +85,15 @@ import starling.display.Sprite;
 
             _colsShowed[id] =  new Array();
 
+            var tile:Tile = null;
+
             // AFFICHAGE DE CHAQUE LIGNE DE LA COLONNE "ID"
             for each(var row:int in _level.layers[0].data[id]) {
-                if(row == 3) {
-                    var tile = _pointFactory.getPoint();
-                    _colsShowed[id].push(tile);
-                }
-                else if(row != 0) {
-                    //var tile:Tile = new Tile();
-                }
+
+                tile = _getTile(row);
 
                 if(tile) {
+                    _colsShowed[id].push(tile);
                     addChild(tile);
                     tile.x = (id % _level.layers[0].width) * _level.tilewidth;
                     tile.y = (rowCPT % _level.layers[0].height) * _level.tilewidth;
@@ -116,17 +104,110 @@ import starling.display.Sprite;
         }
 
         private function _hideColById(id:int):void {
-            //trace("Hide col n°"+id);
 
-            var rowCPT = 0;
+            var rowCPT:int = 0;
             for each(var row:Tile in _colsShowed[id]) {
-                if(row is Point) {
-                    _pointFactory.storePoint(_colsShowed[id][rowCPT]);
-                    _colsShowed[id].splice(rowCPT, 1);
-                }
-
+                _storeTile(_colsShowed[id].splice(_colsShowed[id].indexOf(row),1)[0]);
                 rowCPT++;
             }
+
+            delete _colsShowed[id];
+        }
+
+        public function checkCollisions():void {
+
+            // CHECK UNIQUEMENT LES TILES DANS LA ZONE OU LES COLLISIONS SONT POSSIBLES
+            var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
+
+            if(hitboxPlayer) {
+                // ON DETERMINE LA COLONNE A CHECKER LA PLUS A DROITE
+                if (this.x + (_nextColToCheckCollisions*76) <= (hitboxPlayer.x + hitboxPlayer.width)) {
+                    _nextColToCheckCollisions++;
+                }
+                // ON DETERMINE LA COLONNE A CHECKER LA PLUS A GAUCHE
+                if (this.x + (_lastColToCheckCollisions*76) <= (hitboxPlayer.x - hitboxPlayer.width)) {
+                    _lastColToCheckCollisions++;
+                }
+
+                // ON CHECK LES COLLISIONS DE TOUTES LES TILES ENTRE CES COLONNES
+                for (var i:int = _lastColToCheckCollisions; i < _nextColToCheckCollisions; i++) {
+                    for each(var row:Tile in _colsShowed[i]) {
+                        var hitboxRow:Rectangle = new Rectangle(this.x + row.x, this.y + row.y, row.width, row.height);
+
+                        if (hitboxPlayer.intersects(hitboxRow)) {
+                            dispatchEvent(new CollisionEvent(CollisionEvent.COLLISION, row));
+                        }
+                    }
+                }
+            }
+
+            /*
+
+            // CHECK DE TOUTES LES COLLISIONS DU MONDE
+            var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
+            for each(var col:Array in _colsShowed) {
+                for each(var row:Tile in col) {
+                    var hitboxRow:Rectangle = new Rectangle(this.x + row.x, this.y + row.y, row.width, row.height);
+
+                    if(hitboxPlayer.intersects(hitboxRow)) {
+                        trace("Intersection avec "+row);
+                    }
+                }
+            }*/
+        }
+
+        private function _onCollision(event:CollisionEvent):void {
+            if(event.tile is Point && (event.tile as Point).enabled) {
+                (event.tile as Point).enabled = false;
+                dispatchEvent(new GameEvent(GameEvent.POINT));
+            }
+            if(event.tile is AObstacle) {
+                dispatchEvent(new GameEvent(GameEvent.COMPLETE));
+            }
+        }
+
+        private function _getTile(tileID:int):Tile {
+            switch(tileID) {
+                case 5:
+                    return _obstacleAirFactory.getObstacle();
+                    break;
+                case 4:
+                    return _bonusFactory.getBonus();
+                    break;
+                case 3:
+                    return _pointFactory.getPoint();
+                    break;
+                case 2:
+                    return _carapaceFactory.getCarapace();
+                    break;
+                case 1:
+                    return _champiFactory.getChampi();
+                    break;
+                default:
+                    // NOTHING BUT AIR
+                    return null;
+                    break;
+            }
+        }
+
+        private function _storeTile(tile:Tile):void {
+            if(tile is Point) {
+                _pointFactory.storePoint(tile as Point);
+            }
+            else if(tile is ObstacleAir) {
+                _obstacleAirFactory.storeObstacle(tile as ObstacleAir);
+            }
+            else if(tile is Champi) {
+                _champiFactory.storeChampi(tile as Champi);
+            }
+            else if(tile is Carapace) {
+                _carapaceFactory.storeCarapace(tile as Carapace);
+            }
+            else if(tile is Bonus) {
+                _bonusFactory.storeBonus(tile as Bonus);
+            }
+
+            removeChild(tile);
         }
 
         public function play():void {
@@ -135,6 +216,15 @@ import starling.display.Sprite;
 
         public function pause():void {
             Starling.juggler.remove(this);
+        }
+
+        public function get player():Character {
+            return _player;
+        }
+
+        public function set player(value:Character):void {
+            _player = value;
+            addEventListener(CollisionEvent.COLLISION, _onCollision);
         }
     }
 }

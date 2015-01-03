@@ -22,7 +22,7 @@ import starling.display.Sprite;
             _holder = holder;
 
             // HOME par défault
-            _addPage(PageID.HOME);
+            _addPage(PageID.GAME);
         }
 
         private function _onChangePage(event:PagesEvent):void {

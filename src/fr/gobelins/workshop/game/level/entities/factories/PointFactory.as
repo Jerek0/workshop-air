@@ -8,7 +8,7 @@ import fr.gobelins.workshop.game.level.entities.Point;
 
         private var _points:Vector.<Point>;
 
-        public function PointFactory(quantity:int = 20) {
+        public function PointFactory(quantity:int = 1) {
             _points = new Vector.<Point>();
 
             for(var i:int = 0; i < quantity; i ++)
@@ -21,6 +21,7 @@ import fr.gobelins.workshop.game.level.entities.Point;
         }
 
         public function storePoint(point:Point):void {
+            point.enabled = true;
             _points.push(point);
         }
     }

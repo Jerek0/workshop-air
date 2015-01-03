@@ -9,6 +9,9 @@ import starling.display.Quad;
 import starling.events.Event;
 
 public class Point extends Tile {
+
+    private var _enabled:Boolean = true;
+
     public function Point() {
         super();
     }
@@ -18,6 +21,16 @@ public class Point extends Tile {
         quad.x=0;
         quad.y=0;
         addChild(quad);
+    }
+
+    public function get enabled():Boolean {
+        return _enabled;
+    }
+
+    public function set enabled(value:Boolean):void {
+        _enabled = value;
+        if(value == true) this.alpha = 1;
+        else this.alpha = 0;
     }
 }
 }
