@@ -17,7 +17,7 @@ public class GravityManager implements IAnimatable{
 
     private var _velY:Number = 0;
 
-    public function GravityManager(entity:Sprite, ground:int = 50, gravity:int = 3000) {
+    public function GravityManager(entity:Sprite, ground:int = 50, gravity:int = 6000) {
 
         _entity = entity;
 
@@ -30,7 +30,7 @@ public class GravityManager implements IAnimatable{
     }
 
     private function _onJump(event:CharacterEvent):void {
-        if(_entity.y == _ground) _velY = -1500;
+        if(_entity.y == _ground) _velY = -2000;
     }
 
     public function advanceTime(time:Number):void {

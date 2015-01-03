@@ -3,7 +3,9 @@
  */
 package fr.gobelins.workshop.game {
 
-    import starling.display.Sprite;
+import fr.gobelins.workshop.events.GameEvent;
+
+import starling.display.Sprite;
     import starling.events.EventDispatcher;
 
     public class GameManager extends EventDispatcher {
@@ -15,6 +17,8 @@ package fr.gobelins.workshop.game {
 
             _game = new Game();
             holder.addChild(_game);
+
+            _game.addEventListener(GameEvent.GAME_OVER, pause);
         }
 
         public function pause():void {

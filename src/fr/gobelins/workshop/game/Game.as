@@ -3,12 +3,17 @@
  */
 package fr.gobelins.workshop.game {
     import fr.gobelins.workshop.App;
+import fr.gobelins.workshop.events.GameEvent;
+import fr.gobelins.workshop.events.LevelLoaderEvent;
 import fr.gobelins.workshop.game.character.Character;
 import fr.gobelins.workshop.constants.Settings;
+import fr.gobelins.workshop.game.level.LevelLoader;
 import fr.gobelins.workshop.game.level.Map;
 import fr.gobelins.workshop.util.ParallaxBackground;
 
-    import starling.display.Image;
+import starling.display.DisplayObject;
+
+import starling.display.Image;
     import starling.display.Sprite;
     import starling.events.Event;
 import starling.events.Touch;
@@ -21,6 +26,7 @@ import starling.text.TextField;
         private var _scene:Vector.<ParallaxBackground>;
         private var _character:Character;
         private var _characterGravity:GravityManager;
+        private var _map:Map;
 
         public function Game() {
             super();
@@ -45,10 +51,16 @@ import starling.text.TextField;
 
             // MAP
 
-            var map:Map = new Map("medias/map_2.json");
-            addChild(map);
-            map.y = 80;
-            map.x = 0;
+            var levelLoader = new LevelLoader("medias/map_2.json");
+
+            levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent) {
+                _map = new Map(event.level);
+                addChildAt(_map, 4);
+                _map.y = 80;
+                _map.x = stage.stageWidth+200;
+
+                _map.addEventListener(GameEvent.COMPLETE, _onMapComplete);
+            });
 
             // CHARACTER
             _character = new Character();
@@ -59,6 +71,10 @@ import starling.text.TextField;
             _characterGravity = new GravityManager(_character, _character.y);
 
             this.addEventListener(TouchEvent.TOUCH, _onTouch);
+        }
+
+        private function _onMapComplete(event:GameEvent):void {
+            dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
         }
 
         private function _onTouch(event:TouchEvent):void {
@@ -81,6 +97,7 @@ import starling.text.TextField;
                 parallax.play();
 
             _character.play();
+            if(_map) _map.play();
         }
 
         public function pause():void {
@@ -88,6 +105,7 @@ import starling.text.TextField;
                 parallax.pause();
 
             _character.pause();
+            if(_map) _map.pause();
         }
     }
 }

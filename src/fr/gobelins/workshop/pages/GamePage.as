@@ -48,6 +48,7 @@ package fr.gobelins.workshop.pages {
         }
 
         private function _onHighScoresTriggered(event:Event):void {
+            _gameManager.pause();
             dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HIGHSCORES));
         }
     }
