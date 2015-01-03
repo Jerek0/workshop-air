@@ -3,6 +3,7 @@
  */
 package fr.gobelins.workshop.game {
     import fr.gobelins.workshop.App;
+    import fr.gobelins.workshop.constants.Settings;
     import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.LevelLoaderEvent;
     import fr.gobelins.workshop.game.character.Character;
@@ -16,9 +17,9 @@ package fr.gobelins.workshop.game {
     import starling.events.Touch;
     import starling.events.TouchEvent;
     import starling.events.TouchPhase;
-import starling.text.TextField;
+    import starling.text.TextField;
 
-public class Game extends Sprite implements IGameEntity{
+    public class Game extends Sprite implements IGameEntity{
 
         private var _scene:Vector.<ParallaxBackground>;
         private var _character:Character;
@@ -28,6 +29,8 @@ public class Game extends Sprite implements IGameEntity{
         private var _score:int = 0;
         private var _scoreView:TextField;
 
+        private var _touchBegin:Number;
+
         public function Game() {
             super();
 
@@ -36,15 +39,17 @@ public class Game extends Sprite implements IGameEntity{
             this.addEventListener(Event.ADDED_TO_STAGE, _onAddedToStage);
         }
 
+        // VIEW
+
         private function _onAddedToStage(event:Event):void {
 
             // ###### DECOR
             var background : Image = new Image(App.assets.getTexture("background"));
             addChild(background);
 
-            _scene.push(new ParallaxBackground(App.assets.getTexture("farestPlan"), 18));
-            _scene.push(new ParallaxBackground(App.assets.getTexture("thirdPlan"),6));
-            _scene.push(new ParallaxBackground(App.assets.getTexture("secondPlan"), 2));
+            _scene.push(new ParallaxBackground(App.assets.getTexture("farestPlan"), Settings.FAREST_PLAN_SPEED));
+            _scene.push(new ParallaxBackground(App.assets.getTexture("thirdPlan"), Settings.THIRD_PLAN_SPEED));
+            _scene.push(new ParallaxBackground(App.assets.getTexture("secondPlan"), Settings.SECOND_PLAN_SPEED));
 
             for each(var parallax:ParallaxBackground in _scene)
                 addChild(parallax);
@@ -59,7 +64,6 @@ public class Game extends Sprite implements IGameEntity{
 
             // MAP
             var levelLoader = new LevelLoader("medias/map_2.json");
-
             levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent) {
                 _map = new Map(event.level);
                 addChildAt(_map, 4);
@@ -69,6 +73,7 @@ public class Game extends Sprite implements IGameEntity{
 
                 _map.addEventListener(GameEvent.POINT, _onPointGain);
                 _map.addEventListener(GameEvent.COMPLETE, _onMapComplete);
+                _map.addEventListener(GameEvent.GAME_OVER, _onGameOver);
             });
 
             // UI
@@ -82,25 +87,37 @@ public class Game extends Sprite implements IGameEntity{
             this.addEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
+        // EVENT LISTENER FUNCTIONS
+
+        private function _onTouch(event:TouchEvent):void {
+            var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
+            if(touchBegins) {
+                _touchBegin = new Date().time;
+            }
+
+            var touchEnded : Touch = event.getTouch(this, TouchPhase.ENDED);
+            if(touchEnded) {
+                var currentTime = new Date().time;
+                var deltaTime:Number = currentTime - _touchBegin;
+
+                _character.jump(deltaTime);
+            }
+        }
+
         private function _onPointGain(event:GameEvent):void {
             _score++;
             _scoreView.text = ""+_score;
         }
 
         private function _onMapComplete(event:GameEvent):void {
-            dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
+            dispatchEvent(event);
         }
 
-        private function _onTouch(event:TouchEvent):void {
-            var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
-            if(touchBegins) {
-                _character.jump();
-            }
+        private function _onGameOver(event:GameEvent):void {
+            dispatchEvent(event);
         }
 
-        public function get scene():Vector.<ParallaxBackground> {
-            return _scene;
-        }
+        // INTERFACES FUNCTIONS
 
         public function play():void {
             for each(var parallax:ParallaxBackground in scene)
@@ -118,6 +135,16 @@ public class Game extends Sprite implements IGameEntity{
             _character.pause();
             _characterGravity.pause();
             if(_map) _map.pause();
+        }
+
+        // GETTERS / SETTERS
+
+        public function get score():int {
+            return _score;
+        }
+
+        public function get scene():Vector.<ParallaxBackground> {
+            return _scene;
         }
     }
 }

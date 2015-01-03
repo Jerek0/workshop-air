@@ -27,7 +27,7 @@
     {
 
     },
- "tileheight":16,
+ "tileheight":76,
  "tilesets":[
         {
          "firstgid":1,
@@ -44,7 +44,7 @@
          "tileheight":16,
          "tilewidth":16
         }],
- "tilewidth":16,
+ "tilewidth":76,
  "version":1,
  "width":50
 }

@@ -9,8 +9,12 @@ public class CharacterEvent extends Event {
     public static const JUMP:String = "jump";
     public static const LANDED:String = "landed";
 
-    public function CharacterEvent(type:String, bubbles:Boolean = false, data:Object = null) {
+    public var deltaTime:Number;
+
+    public function CharacterEvent(type:String, deltaTime:Number = 0, bubbles:Boolean = false, data:Object = null) {
         super(type, bubbles, data);
+
+        this.deltaTime = deltaTime;
     }
 }
 }

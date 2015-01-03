@@ -38,13 +38,17 @@ public class App extends Sprite {
             _assets.enqueue(mediasFolder.resolvePath("logo.png"));
             _assets.enqueue(mediasFolder.resolvePath("btnDemarrer.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnHighScores.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnPause.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnHome.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnSkip.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnRetry.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnResume.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("slide001.png"));
             _assets.enqueue(mediasFolder.resolvePath("slide002.png"));
             _assets.enqueue(mediasFolder.resolvePath("slide003.png"));
             _assets.enqueue(mediasFolder.resolvePath("dotInactive.png"));
             _assets.enqueue(mediasFolder.resolvePath("dotActive.png"));
+            _assets.enqueue(mediasFolder.resolvePath("bkgPopup.png"));
 
             _assets.enqueue(mediasFolder.resolvePath("dino.png"));
             _assets.enqueue(mediasFolder.resolvePath("dino.xml"));

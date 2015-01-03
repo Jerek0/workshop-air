@@ -4,6 +4,7 @@
 package fr.gobelins.workshop.game.level {
     import flash.geom.Rectangle;
 
+    import fr.gobelins.workshop.constants.Settings;
     import fr.gobelins.workshop.events.CollisionEvent;
     import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.game.IGameEntity;
@@ -26,19 +27,21 @@ package fr.gobelins.workshop.game.level {
 
     public class Map extends Sprite implements IAnimatable, IGameEntity {
 
+        // PRIMARY ATTRIBUTES
         private var _level:Object;
         private var _player:Character = null;
 
+        // FACTORIES
         private var _pointFactory:PointFactory;
         private var _bonusFactory:BonusFactory;
         private var _obstacleAirFactory:ObstacleAirFactory;
         private var _champiFactory:ChampiFactory;
         private var _carapaceFactory:CarapaceFactory;
 
+        // POOLING COLS
         private var _colsShowed:Array;
         private var _nextColToShow:int = 0;
         private var _nextColToHide:int = 0;
-
         private var _nextColToCheckCollisions:int = 0;
         private var _lastColToCheckCollisions:int = 0;
 
@@ -46,34 +49,37 @@ package fr.gobelins.workshop.game.level {
             super();
             _level = level;
 
+            // Init the factories
             _pointFactory = new PointFactory(27);
             _bonusFactory = new BonusFactory();
             _obstacleAirFactory = new ObstacleAirFactory(10);
             _champiFactory = new ChampiFactory(10);
             _carapaceFactory = new CarapaceFactory(10);
 
+            // Init our array of tiles cols showed
             _colsShowed = new Array();
         }
 
         public function advanceTime(time:Number):void {
-            this.x -= 640 * time;
+            // We move the map by 640 pixels / sec
+            this.x -= (Settings.APP_WIDTH / Settings.SECOND_PLAN_SPEED) * time;
 
-            _update();
-            if(_player) checkCollisions();
+            _updateColsToWatch();
+            if(_player) _checkCollisions();
         }
 
-        private function _update():void {
-            if(_nextColToShow <= _level.width && this.x + ( 76 * _nextColToShow ) < stage.stageWidth + 76) {
+        private function _updateColsToWatch():void {
+            if(_nextColToShow <= _level.width && this.x + ( _level.tilewidth * _nextColToShow ) < stage.stageWidth + _level.tilewidth) {
                 _showColById(_nextColToShow);
                 _nextColToShow++;
             }
 
-            if(_nextColToHide <= _level.width && this.x + ( 76 * _nextColToHide) < (-76)) {
+            if(_nextColToHide <= _level.width && this.x + ( _level.tilewidth * _nextColToHide) < (- _level.tilewidth)) {
                 _hideColById(_nextColToHide);
                 _nextColToHide++;
             }
 
-            if(this.x < -(_level.width * 76)) {
+            if(this.x < -(_level.width * _level.tilewidth)) {
                 dispatchEvent(new GameEvent(GameEvent.COMPLETE));
             }
         }
@@ -114,18 +120,18 @@ package fr.gobelins.workshop.game.level {
             delete _colsShowed[id];
         }
 
-        public function checkCollisions():void {
+        private function _checkCollisions():void {
 
             // CHECK UNIQUEMENT LES TILES DANS LA ZONE OU LES COLLISIONS SONT POSSIBLES
             var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
 
             if(hitboxPlayer) {
                 // ON DETERMINE LA COLONNE A CHECKER LA PLUS A DROITE
-                if (this.x + (_nextColToCheckCollisions*76) <= (hitboxPlayer.x + hitboxPlayer.width)) {
+                if (this.x + (_nextColToCheckCollisions * _level.tilewidth) <= (hitboxPlayer.x + hitboxPlayer.width)) {
                     _nextColToCheckCollisions++;
                 }
                 // ON DETERMINE LA COLONNE A CHECKER LA PLUS A GAUCHE
-                if (this.x + (_lastColToCheckCollisions*76) <= (hitboxPlayer.x - hitboxPlayer.width)) {
+                if (this.x + (_lastColToCheckCollisions * _level.tilewidth) <= (hitboxPlayer.x - hitboxPlayer.width)) {
                     _lastColToCheckCollisions++;
                 }
 
@@ -162,7 +168,7 @@ package fr.gobelins.workshop.game.level {
                 dispatchEvent(new GameEvent(GameEvent.POINT));
             }
             if(event.tile is AObstacle) {
-                dispatchEvent(new GameEvent(GameEvent.COMPLETE));
+                dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
             }
         }
 

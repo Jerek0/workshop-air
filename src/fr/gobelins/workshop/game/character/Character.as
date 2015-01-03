@@ -34,10 +34,10 @@ import starling.display.Sprite;
 
             var scope = this;
             _body.addEventListener(Event.ADDED_TO_STAGE, function(event:Event) {
-                _hitbox = new Quad(76*1, 76*1.5, 0xFF0000);
+                _hitbox = new Quad(76*1, 76*1, 0xFF0000);
                 scope.addChildAt(_hitbox, 0);
-                _hitbox.x = 80;
-                _hitbox.y = 40;
+                _hitbox.x = 95;
+                _hitbox.y = 25;
                 _hitbox.alpha = 0.2;
             });
 
@@ -64,10 +64,10 @@ import starling.display.Sprite;
             Starling.juggler.add(_tween)
         }
 
-        public function jump():void {
-            this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP));
+        public function jump(deltaTime:Number):void {
+            this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP, deltaTime));
             addEventListener(CharacterEvent.LANDED, _onLanding);
-            trace("jump");
+            trace("jump for " + deltaTime);
         }
 
         private function _onLanding(event:CharacterEvent):void {
