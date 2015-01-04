@@ -45,7 +45,7 @@ package fr.gobelins.workshop.game.level {
         private var _nextColToCheckCollisions:int = 0;
         private var _lastColToCheckCollisions:int = 0;
 
-        public function Map(level:Object) {
+        public function Map(level:Object = null) {
             super();
             _level = level;
 
@@ -231,6 +231,14 @@ package fr.gobelins.workshop.game.level {
         public function set player(value:Character):void {
             _player = value;
             addEventListener(CollisionEvent.COLLISION, _onCollision);
+        }
+
+        public function set level(value:Object):void {
+            _level = value;
+        }
+
+        public function get level():Object {
+            return _level;
         }
     }
 }

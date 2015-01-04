@@ -11,8 +11,8 @@ import fr.gobelins.workshop.App;
     import starling.animation.Tween;
     import starling.core.Starling;
     import starling.display.MovieClip;
-import starling.display.Quad;
-import starling.display.Sprite;
+    import starling.display.Quad;
+    import starling.display.Sprite;
     import starling.events.Event;
 
     public class Character extends Sprite implements IGameEntity {
@@ -38,7 +38,7 @@ import starling.display.Sprite;
                 scope.addChildAt(_hitbox, 0);
                 _hitbox.x = 95;
                 _hitbox.y = 25;
-                _hitbox.alpha = 0.2;
+                _hitbox.alpha = 0;
             });
 
             addChild(_body);
@@ -57,11 +57,11 @@ import starling.display.Sprite;
         }
 
         public function pause():void {
-            Starling.juggler.remove(_tween)
+            Starling.juggler.remove(_tween);
         }
 
         public function play():void {
-            Starling.juggler.add(_tween)
+            Starling.juggler.add(_tween);
         }
 
         public function jump(deltaTime:Number):void {

@@ -10,7 +10,10 @@ package fr.gobelins.workshop.game {
     import fr.gobelins.workshop.game.level.LevelLoader;
     import fr.gobelins.workshop.game.level.Map;
     import fr.gobelins.workshop.util.ParallaxBackground;
+    import fr.gobelins.workshop.util.ProgressBar;
 
+    import starling.animation.IAnimatable;
+    import starling.core.Starling;
     import starling.display.Image;
     import starling.display.Sprite;
     import starling.events.Event;
@@ -19,7 +22,7 @@ package fr.gobelins.workshop.game {
     import starling.events.TouchPhase;
     import starling.text.TextField;
 
-    public class Game extends Sprite implements IGameEntity{
+    public class Game extends Sprite implements IGameEntity, IAnimatable{
 
         private var _scene:Vector.<ParallaxBackground>;
         private var _character:Character;
@@ -30,6 +33,7 @@ package fr.gobelins.workshop.game {
         private var _scoreView:TextField;
 
         private var _touchBegin:Number;
+        private var _jumpProgressBar:ProgressBar;
 
         public function Game() {
             super();
@@ -37,6 +41,7 @@ package fr.gobelins.workshop.game {
             _scene = new Vector.<ParallaxBackground>();
 
             this.addEventListener(Event.ADDED_TO_STAGE, _onAddedToStage);
+            Starling.juggler.add(this);
         }
 
         // VIEW
@@ -63,9 +68,10 @@ package fr.gobelins.workshop.game {
             _characterGravity = new GravityManager(_character, _character.y);
 
             // MAP
+            _map = new Map();
             var levelLoader = new LevelLoader("medias/map_2.json");
             levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent) {
-                _map = new Map(event.level);
+                _map.level = event.level;
                 addChildAt(_map, 4);
                 _map.y = 80;
                 _map.x = stage.stageWidth+200;
@@ -84,6 +90,13 @@ package fr.gobelins.workshop.game {
             _scoreView.x = stage.stageWidth - _scoreView.width;
             _scoreView.y = _scoreView.height;
 
+            _jumpProgressBar = new ProgressBar(200, 20, 0xFFFFFF, 0x666666);
+            addChild(_jumpProgressBar);
+            _jumpProgressBar.x = stage.stageWidth / 2 - _jumpProgressBar.width / 2;
+            _jumpProgressBar.y = stage.stageHeight - _jumpProgressBar.height - 20;
+            _jumpProgressBar.alpha = 0.2;
+
+
             this.addEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
@@ -101,6 +114,9 @@ package fr.gobelins.workshop.game {
                 var deltaTime:Number = currentTime - _touchBegin;
 
                 _character.jump(deltaTime);
+                if(_jumpProgressBar) _jumpProgressBar.percentage = 0;
+
+                _touchBegin = 0;
             }
         }
 
@@ -126,6 +142,11 @@ package fr.gobelins.workshop.game {
             _character.play();
             _characterGravity.play();
             if(_map) _map.play();
+            else if(!Settings.show_tutorial) {
+                _map.addEventListener(Event.ADDED_TO_STAGE, function(event:Event) {
+                    _map.play();
+                });
+            }
         }
 
         public function pause():void {
@@ -145,6 +166,21 @@ package fr.gobelins.workshop.game {
 
         public function get scene():Vector.<ParallaxBackground> {
             return _scene;
+        }
+
+        public function advanceTime(time:Number):void {
+            if(_touchBegin > 0) {
+                var currentTime = new Date().time;
+                var deltaTime:Number = currentTime - _touchBegin;
+
+                if(deltaTime && deltaTime > Settings.TOUCH_MIN_DELTA_TIME) {
+                    if(deltaTime < (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME)) {
+                        _jumpProgressBar.percentage = (deltaTime) / (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME);
+                    } else {
+                        _jumpProgressBar.percentage = 1;
+                    }
+                }
+            }
         }
     }
 }

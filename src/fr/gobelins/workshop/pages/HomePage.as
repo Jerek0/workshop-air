@@ -5,6 +5,7 @@ package fr.gobelins.workshop.pages {
 
 import fr.gobelins.workshop.App;
 import fr.gobelins.workshop.constants.PageID;
+import fr.gobelins.workshop.constants.Settings;
 import fr.gobelins.workshop.events.PagesEvent;
 import fr.gobelins.workshop.game.character.Character;
 import fr.gobelins.workshop.util.ParallaxBackground;
@@ -21,6 +22,8 @@ import starling.events.Event;
         }
 
         protected override function _init():void {
+
+            Settings.show_tutorial = true;
 
             // ###### DECOR
             var background : Image = new Image(App.assets.getTexture("background"));
@@ -45,13 +48,16 @@ import starling.events.Event;
 
             // ###### UI
             var logo : Image = new Image(App.assets.getTexture("logo"));
-            logo.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (logo.width / 2);
-            logo.y = 100;
+            var ratio:Number = logo.width / logo.height;
+            logo.width = 600;
+            logo.height = logo.width / ratio;
+            logo.x = (stage.stageWidth / 3) - (logo.width / 2);
+            logo.y = 50;
             addChild(logo);
 
             var btnPlay : Button = new Button(App.assets.getTexture("btnDemarrer"));
             btnPlay.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (btnPlay.width / 2);
-            btnPlay.y = logo.y + logo.height + 100;
+            btnPlay.y = 400;
             btnPlay.addEventListener(Event.TRIGGERED, _onPlayTriggered);
             addChild(btnPlay);
 

@@ -20,6 +20,8 @@ public class Settings {
     public static const JUMP_MIN_INERTY:uint = 1200;
     public static const JUMP_MAX_INERTY:uint = 1600;
 
+    public static var show_tutorial:Boolean = true;
+
     public function Settings() {
     }
 }

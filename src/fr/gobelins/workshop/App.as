@@ -2,19 +2,24 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop {
+    import flash.filesystem.File;
 
-import flash.filesystem.File;
+    import fr.gobelins.workshop.constants.Settings;
+    import fr.gobelins.workshop.pages.PageManager;
+    import fr.gobelins.workshop.util.ProgressBar;
 
-import fr.gobelins.workshop.pages.PageManager;
+    import starling.display.Image;
+    import starling.display.Sprite;
+    import starling.textures.Texture;
+    import starling.utils.AssetManager;
 
-import starling.display.Quad;
-import starling.display.Sprite;
-import starling.utils.AssetManager;
-
-public class App extends Sprite {
+    public class App extends Sprite {
 
         private static var _assets:AssetManager;
         private var _pageManager:PageManager;
+
+        [Embed(source="../../../../bin/medias/logo.png")]
+        private static const Logo:Class;
 
         public function App() {
             super();
@@ -54,18 +59,30 @@ public class App extends Sprite {
             _assets.enqueue(mediasFolder.resolvePath("dino.xml"));
 
 
-            var loading:Quad = new Quad(1, stage.stageHeight, 0x333333);
-            loading.x = 0; loading.y = 0;
+            var splashScreen:Image = new Image(Texture.fromBitmap(new Logo()));
+            var ratio = splashScreen.width / splashScreen.height;
+            splashScreen.width = Settings.APP_WIDTH / 2;
+            splashScreen.height = splashScreen.width / ratio;
+            splashScreen.x = stage.stageWidth / 2 - splashScreen.width / 2;
+            splashScreen.y = stage.stageHeight / 2 - splashScreen.height / 2 - 40;
+            addChild(splashScreen);
+
+            var loading:ProgressBar = new ProgressBar(200, 20, 0xFFFFFF, 0x666666);
             addChild(loading);
+            loading.alpha = 0.2;
+            loading.x = stage.stageWidth / 2 - loading.width / 2;
+            loading.y = splashScreen.y + splashScreen.height + 40;
 
             _assets.loadQueue(function(ratio:Number):void {
                 trace("Loading assets, progress:", ratio);
 
-                loading.width = stage.stageWidth*ratio;
+                loading.percentage = ratio;
 
                 if(ratio >= 1.0) {
                     removeChild(loading, true);
+                    removeChild(splashScreen, true);
                     loading = null;
+                    splashScreen = null;
                     _build();
                 }
             });

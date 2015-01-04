@@ -4,7 +4,8 @@
 package fr.gobelins.workshop.pages {
     import fr.gobelins.workshop.App;
     import fr.gobelins.workshop.constants.PageID;
-    import fr.gobelins.workshop.events.GameEvent;
+import fr.gobelins.workshop.constants.Settings;
+import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.PagesEvent;
     import fr.gobelins.workshop.game.Game;
     import fr.gobelins.workshop.util.Popup;
@@ -23,6 +24,8 @@ package fr.gobelins.workshop.pages {
         private var _pause:Popup;
         private var _gameOver:Popup;
 
+        private var _btnPause:Button;
+
         public function GamePage() {
             super();
         }
@@ -31,19 +34,18 @@ package fr.gobelins.workshop.pages {
             // GAME
             _game = new Game();
             addChild(_game);
-            _game.pause();
+            _game.play();
 
-            var btnPause : Button = new Button(App.assets.getTexture("btnPause"));
-            btnPause.x = 20;
-            btnPause.y = 20;
-            btnPause.addEventListener(Event.TRIGGERED, _onPause);
-            addChild(btnPause);
+            _btnPause = new Button(App.assets.getTexture("btnPause"));
+            _btnPause.x = 20;
+            _btnPause.y = 20;
+            _btnPause.addEventListener(Event.TRIGGERED, _onPause);
+            addChild(_btnPause);
 
             // ####### TUTORIAL
             _tutorial = new Tutorial();
             _tutorial.x = 0; _tutorial.y = 0;
-            _tutorial.addEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onSkip);
-            addChild(_tutorial);
+            if(Settings.show_tutorial) _showTutorial();
 
             // ####### MENU PAUSE
             _pause = new Popup("Pause", App.assets.getTexture("bkgPopup"));
@@ -54,9 +56,17 @@ package fr.gobelins.workshop.pages {
             _game.addEventListener(GameEvent.COMPLETE, _onGameOver);
         }
 
-        // Function called when we skip the tutorial
-        private function _onSkip(event:Event):void {
+        private function _showTutorial():void {
+            _game.pause();
+            addChild(_tutorial);
+            _tutorial.addEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onTutorialSkip);
+        }
+
+        private function _onTutorialSkip(event:Event):void {
             removeChild(_tutorial);
+            _tutorial.removeEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onTutorialSkip);
+
+            Settings.show_tutorial = false;
             _game.play();
         }
 
@@ -92,6 +102,8 @@ package fr.gobelins.workshop.pages {
             _gameOver.x = (stage.stageWidth / 2) - (_gameOver.width / 2);
             _gameOver.y = (stage.stageHeight / 2) - (_gameOver.height / 2);
 
+            removeChild(_btnPause);
+
             var score:TextField = new TextField(_gameOver.width, 50, "Score : "+_game.score);
             score.x = _gameOver.width / 2 - score.width / 2;
             score.y = 100;
@@ -108,7 +120,7 @@ package fr.gobelins.workshop.pages {
             var btnHighScores : Button = new Button(App.assets.getTexture("btnHighScores"));
             btnHighScores.x = _gameOver.width - btnHighScores.width - 20;
             btnHighScores.y = _gameOver.height - btnHighScores.height - 20;
-            btnHighScores.addEventListener(Event.TRIGGERED, _onHomeTriggered);
+            btnHighScores.addEventListener(Event.TRIGGERED, _onHighScoresTriggered);
             _gameOver.addChild(btnHighScores);
 
         }
@@ -116,6 +128,11 @@ package fr.gobelins.workshop.pages {
         private function _onHomeTriggered(event:Event):void {
             _game.pause();
             dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HOME));
+        }
+
+        private function _onHighScoresTriggered(event:Event):void {
+            _game.pause();
+            dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HIGHSCORES));
         }
 
         private function _onResumeTriggered(event:Event):void {
