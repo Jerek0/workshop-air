@@ -9,6 +9,8 @@ import starling.text.TextField;
 
 public class Tile extends Sprite {
 
+    private var _enabled:Boolean = true;
+
     public function Tile() {
         super();
 
@@ -20,6 +22,16 @@ public class Tile extends Sprite {
         quad.x=0;
         quad.y=0;
         addChild(quad);
+    }
+
+    public function get enabled():Boolean {
+        return _enabled;
+    }
+
+    public function set enabled(value:Boolean):void {
+        _enabled = value;
+        if(value == true) this.alpha = 1;
+        else this.alpha = 0;
     }
 }
 }

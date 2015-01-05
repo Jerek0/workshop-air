@@ -18,8 +18,13 @@ package fr.gobelins.workshop.game.character {
         private var _size:int;
         private var _tween:Tween;
         private var _hitbox:Quad;
-        private var _state:ICharacterState = new NormalState();
         private var _isJumping:Boolean = false;
+
+        private var _state:ICharacterState = new NormalState();
+
+        public static const NORMAL_STATE:uint = 1;
+        public static const FLY_STATE:uint = 2;
+        public static const LOW_GRAVITY_STATE:uint = 3;
 
         public function Character() {
             super();
@@ -85,7 +90,8 @@ package fr.gobelins.workshop.game.character {
         }
 
         private function _onFalling(event:CharacterEvent = null):void {
-            _changeSkin("NormalDown");
+            if(!_isJumping)
+                _changeSkin("NormalDown");
         }
 
         public function get hitbox():Quad {
@@ -99,6 +105,24 @@ package fr.gobelins.workshop.game.character {
             pause();
             animate();
             play();
+        }
+
+        public function changeState(id:uint):void {
+            switch(id) {
+                case NORMAL_STATE:
+                        _state = new NormalState();
+                    break;
+                case FLY_STATE:
+                        _state = new FlyState();
+                    break;
+                case LOW_GRAVITY_STATE:
+                        _state = new LowGravityState();
+                    break;
+            }
+        }
+
+        public function getState():uint {
+            return (_state as NormalState).id;
         }
     }
 }

@@ -56,6 +56,13 @@ package fr.gobelins.workshop {
             _assets.enqueue(mediasFolder.resolvePath("dotInactive.png"));
             _assets.enqueue(mediasFolder.resolvePath("dotActive.png"));
             _assets.enqueue(mediasFolder.resolvePath("bkgPopup.png"));
+            _assets.enqueue(mediasFolder.resolvePath("bkgWindowCasino.png"));
+            _assets.enqueue(mediasFolder.resolvePath("bkgLauncherCasino.png"));
+            _assets.enqueue(mediasFolder.resolvePath("tireuseUp.png"));
+            _assets.enqueue(mediasFolder.resolvePath("tireuseDown.png"));
+            _assets.enqueue(mediasFolder.resolvePath("normal.png"));
+            _assets.enqueue(mediasFolder.resolvePath("redBull.png"));
+            _assets.enqueue(mediasFolder.resolvePath("astro.png"));
 
             _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.png"));
             _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.xml"));

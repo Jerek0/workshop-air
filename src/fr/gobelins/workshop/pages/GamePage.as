@@ -42,6 +42,7 @@ import fr.gobelins.workshop.events.GameEvent;
             _btnPause.addEventListener(Event.TRIGGERED, _onPause);
             addChild(_btnPause);
 
+            // TODO OPTIM PAUSE GAMEOVER TUTO
             // ####### TUTORIAL
             if(Settings.show_tutorial) _showTutorial();
 

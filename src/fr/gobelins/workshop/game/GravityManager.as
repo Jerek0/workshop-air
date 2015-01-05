@@ -18,7 +18,6 @@ public class GravityManager implements IAnimatable, IGameEntity{
     private var _entity:Sprite;
 
     private var _ground:int;
-    private var _gravity:int;
 
     private var _velY:Number = 0;
 
@@ -29,7 +28,6 @@ public class GravityManager implements IAnimatable, IGameEntity{
         _entity = entity;
 
         _ground = ground;
-        _gravity = Settings.GRAVITY;
 
         _entity.addEventListener(CharacterEvent.JUMP, _onJump);
         _entity.addEventListener(CharacterEvent.STOP_JUMP, _onStopJump);
@@ -45,14 +43,12 @@ public class GravityManager implements IAnimatable, IGameEntity{
     }
 
     private function _onJump(event:CharacterEvent):void {
-        // TODO Gerer le saut au touch
-
         if(Settings.CAN_JUMP_IN_THE_AIR || ((_jumpBegin == 0 && _entity.y == _ground) || (_jumpBegin > 0 && _velY <= 0))){
             if(_jumpBegin == 0) _jumpBegin = new Date().time;
 
             if(_entity.y > (Settings.CEILING + 76))
                 _velY = -(Settings.JUMP_INERTY);
-            else if(!Settings.CAN_JUMP_IN_THE_AIR) {
+            else {
                 _stopJump();
             }
         }
@@ -62,7 +58,7 @@ public class GravityManager implements IAnimatable, IGameEntity{
         _entity.y += _velY * time;
 
         if(_entity.y < _ground) {
-            if(_jumpBegin == 0) _velY += _gravity * time;
+            if(_jumpBegin == 0) _velY += Settings.GRAVITY * time;
         }
         else {
             _velY = 0;

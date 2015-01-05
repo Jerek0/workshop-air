@@ -149,29 +149,6 @@ package fr.gobelins.workshop.game.level {
                     }
                 }
             }
-
-            /*
-            // CHECK DE TOUTES LES COLLISIONS DU MONDE
-            var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
-            for each(var col:Array in _colsShowed) {
-                for each(var row:Tile in col) {
-                    var hitboxRow:Rectangle = new Rectangle(this.x + row.x, this.y + row.y, row.width, row.height);
-
-                    if(hitboxPlayer.intersects(hitboxRow)) {
-                        trace("Intersection avec "+row);
-                    }
-                }
-            }*/
-        }
-
-        private function _onCollision(event:CollisionEvent):void {
-            if(event.tile is Point && (event.tile as Point).enabled) {
-                (event.tile as Point).enabled = false;
-                dispatchEvent(new GameEvent(GameEvent.POINT));
-            }
-            if(event.tile is AObstacle) {
-                dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
-            }
         }
 
         private function _getTile(tileID:int):Tile {
@@ -216,7 +193,7 @@ package fr.gobelins.workshop.game.level {
                 _bonusFactory.storeBonus(tile as Bonus);
             }
 
-            removeChild(tile);
+            removeChild(tile, true);
         }
 
         public function play():void {
@@ -233,7 +210,6 @@ package fr.gobelins.workshop.game.level {
 
         public function set player(value:Character):void {
             _player = value;
-            addEventListener(CollisionEvent.COLLISION, _onCollision);
         }
 
         public function set level(value:Object):void {

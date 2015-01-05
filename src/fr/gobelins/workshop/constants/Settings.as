@@ -22,6 +22,7 @@ public class Settings {
     public static const LOW_JUMP_INERTY:uint = 300;
 
     public static const NORMAL_CEILING:int = 80+76;
+    public static const FLY_CEILING:int = 80;
     public static const LOW_CEILING:int = 10;
 
     public static var GRAVITY:uint = 2600;

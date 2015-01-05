@@ -5,6 +5,8 @@ package fr.gobelins.workshop.game.character {
 import fr.gobelins.workshop.constants.Settings;
 
 public class NormalState implements ICharacterState {
+        private var _id:uint = Character.NORMAL_STATE;
+
         public function NormalState() {
             Settings.GRAVITY = Settings.NORMAL_GRAVITY;
             Settings.JUMP_INERTY = Settings.NORMAL_JUMP_INERTY;
@@ -12,5 +14,9 @@ public class NormalState implements ICharacterState {
 
             Settings.CAN_JUMP_IN_THE_AIR = false;
         }
+
+    public function get id():uint {
+        return _id;
     }
+}
 }

@@ -4,15 +4,22 @@
 package fr.gobelins.workshop.game {
     import fr.gobelins.workshop.App;
     import fr.gobelins.workshop.constants.Settings;
-    import fr.gobelins.workshop.events.GameEvent;
+import fr.gobelins.workshop.events.CollisionEvent;
+import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.LevelLoaderEvent;
-    import fr.gobelins.workshop.game.character.Character;
+import fr.gobelins.workshop.events.RandomCasinoEvent;
+import fr.gobelins.workshop.game.character.Character;
     import fr.gobelins.workshop.game.level.LevelLoader;
     import fr.gobelins.workshop.game.level.Map;
-    import fr.gobelins.workshop.util.ParallaxBackground;
-    import fr.gobelins.workshop.util.ProgressBar;
+import fr.gobelins.workshop.game.level.entities.AObstacle;
+import fr.gobelins.workshop.game.level.entities.Bonus;
+import fr.gobelins.workshop.game.level.entities.Point;
+import fr.gobelins.workshop.util.ParallaxBackground;
+import fr.gobelins.workshop.util.Popup;
+import fr.gobelins.workshop.util.ProgressBar;
+import fr.gobelins.workshop.util.RandomCasino;
 
-    import starling.animation.IAnimatable;
+import starling.animation.IAnimatable;
     import starling.core.Starling;
     import starling.display.Image;
     import starling.display.Sprite;
@@ -33,6 +40,7 @@ package fr.gobelins.workshop.game {
         private var _scoreView:TextField;
 
         private var _touchBegin:Number;
+        private var _popup:Popup;
 
         public function Game() {
             super();
@@ -76,10 +84,11 @@ package fr.gobelins.workshop.game {
                 _map.y = 80;
                 _map.x = stage.stageWidth+200;
                 _map.player = _character;
+                _map.addEventListener(CollisionEvent.COLLISION, _onCollision);
+                _map.addEventListener(GameEvent.COMPLETE, _onComplete);
 
-                _map.addEventListener(GameEvent.POINT, _onPointGain);
-                _map.addEventListener(GameEvent.COMPLETE, _onMapComplete);
-                _map.addEventListener(GameEvent.GAME_OVER, _onGameOver);
+                addEventListener(GameEvent.POINT, _onPointGain);
+                addEventListener(GameEvent.BONUS, _onBonus);
             });
 
             // UI
@@ -89,35 +98,15 @@ package fr.gobelins.workshop.game {
             _scoreView.fontSize = 24;
             _scoreView.x = stage.stageWidth - _scoreView.width;
             _scoreView.y = _scoreView.height;
-
-            /*_jumpProgressBar = new ProgressBar(200, 20, 0xFFFFFF, 0x666666);
-            addChild(_jumpProgressBar);
-            _jumpProgressBar.x = stage.stageWidth / 2 - _jumpProgressBar.width / 2;
-            _jumpProgressBar.y = stage.stageHeight - _jumpProgressBar.height - 20;
-            _jumpProgressBar.alpha = 0.2;*/
-
-
-            this.addEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
         // EVENT LISTENER FUNCTIONS
 
+        private function _onComplete(event:GameEvent):void {
+            dispatchEvent(event);
+        }
+
         private function _onTouch(event:TouchEvent):void {
-            /*var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
-            if(touchBegins) {
-                _touchBegin = new Date().time;
-            }
-
-            var touchEnded : Touch = event.getTouch(this, TouchPhase.ENDED);
-            if(touchEnded) {
-                var currentTime = new Date().time;
-                var deltaTime:Number = currentTime - _touchBegin;
-
-                _character.jump(deltaTime);
-                if(_jumpProgressBar) _jumpProgressBar.percentage = 0;
-
-                _touchBegin = 0;
-            }*/
 
             var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
             if(touchBegins) {
@@ -132,17 +121,59 @@ package fr.gobelins.workshop.game {
             }
         }
 
+        private function _onCollision(event:CollisionEvent):void {
+            if(event.tile is Point && event.tile.enabled) {
+                event.tile.enabled = false;
+                dispatchEvent(new GameEvent(GameEvent.POINT));
+            }
+            else if(event.tile is AObstacle) {
+                dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
+            }
+            else if(event.tile is Bonus && event.tile.enabled) {
+                event.tile.enabled = false;
+                dispatchEvent(new GameEvent(GameEvent.BONUS));
+            }
+        }
+
         private function _onPointGain(event:GameEvent):void {
             _score++;
             _scoreView.text = ""+_score;
         }
 
-        private function _onMapComplete(event:GameEvent):void {
-            dispatchEvent(event);
+        private function _onBonus(event:GameEvent):void {
+            pause();
+
+            _popup = new Popup("Game bonus !", App.assets.getTexture("bkgPopup"));
+            addChild(_popup);
+            _popup.x = stage.stageWidth / 2 - _popup.width / 2;
+            _popup.y = stage.stageHeight / 2 - _popup.height / 2;
+
+            var randomMachine : RandomCasino = new RandomCasino(App.assets.getTexture("bkgWindowCasino"), App.assets.getTexture("tireuseUp"), App.assets.getTexture("tireuseDown"), App.assets.getTexture("bkgLauncherCasino"));
+            randomMachine.addValue(Character.NORMAL_STATE, App.assets.getTexture("normal"));
+            randomMachine.addValue(Character.FLY_STATE, App.assets.getTexture("redBull"));
+            randomMachine.addValue(Character.LOW_GRAVITY_STATE, App.assets.getTexture("astro"));
+            _popup.addChild(randomMachine);
+            randomMachine.addEventListener(RandomCasinoEvent.WINNER, _onBonusFound);
+
+            /*var newState:Number = _character.getState() ;
+            while(newState == _character.getState()){
+                newState = Math.floor(Math.random()*3+1);
+            }
+            _character.changeState(newState);
+            trace(newState);*/
         }
 
-        private function _onGameOver(event:GameEvent):void {
-            dispatchEvent(event);
+        private function _onBonusFound(event:RandomCasinoEvent):void {
+            _popup.removeChildren();
+            removeChild(_popup, true);
+            _popup = null;
+
+            play();
+            _character.changeState(event.winner);
+            trace(event.winner);
+
+            _touchBegin = 0;
+            _character.stopJump();
         }
 
         // INTERFACES FUNCTIONS
@@ -159,6 +190,7 @@ package fr.gobelins.workshop.game {
                     _map.play();
                 });
             }
+            addEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
         public function pause():void {
@@ -168,6 +200,8 @@ package fr.gobelins.workshop.game {
             _character.pause();
             _characterGravity.pause();
             if(_map) _map.pause();
+
+            removeEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
         // GETTERS / SETTERS
@@ -182,18 +216,7 @@ package fr.gobelins.workshop.game {
 
         public function advanceTime(time:Number):void {
             if(_touchBegin > 0) {
-                //var currentTime = new Date().time;
-                //var deltaTime:Number = currentTime - _touchBegin;
-
                 _character.jump();
-                /*
-                if(deltaTime && deltaTime > Settings.TOUCH_MIN_DELTA_TIME) {
-                    if(deltaTime < (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME)) {
-                        _jumpProgressBar.percentage = (deltaTime) / (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME);
-                    } else {
-                        _jumpProgressBar.percentage = 1;
-                    }
-                }*/
             }
         }
     }

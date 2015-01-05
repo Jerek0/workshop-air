@@ -14,8 +14,6 @@ import starling.events.Event;
 
 public class Point extends Tile {
 
-    private var _enabled:Boolean = true;
-
     private var _body:MovieClip;
 
     public function Point() {
@@ -41,16 +39,6 @@ public class Point extends Tile {
     private function _animate():void {
         _body.play();
         Starling.juggler.add(_body);
-    }
-
-    public function get enabled():Boolean {
-        return _enabled;
-    }
-
-    public function set enabled(value:Boolean):void {
-        _enabled = value;
-        if(value == true) this.alpha = 1;
-        else this.alpha = 0;
     }
 }
 }
