@@ -6,11 +6,9 @@ package fr.gobelins.workshop.game.level.entities {
 import fr.gobelins.workshop.App;
 import fr.gobelins.workshop.game.level.Tile;
 
-import starling.animation.Tween;
 import starling.core.Starling;
 
 import starling.display.MovieClip;
-
 import starling.display.Quad;
 import starling.events.Event;
 
@@ -31,19 +29,18 @@ public class Point extends Tile {
         quad.alpha = 0;
         addChild(quad);
 
-        _body = new MovieClip(App.assets.getTextureAtlas("pieces").getTextures("piece"));
+        _body = new MovieClip(App.assets.getTextureAtlas("pieces").getTextures("piece"), 26);
         _body.x = quad.width / 2 - _body.width / 2;
         _body.y = quad.height / 2 - _body.height / 2;
+        _body.loop = true;
         addChild(_body);
 
         _animate();
     }
 
     private function _animate():void {
-        var _tween :Tween = new Tween(_body, 1);
-        _tween.animate("currentFrame", _body.numFrames-1);
-        _tween.repeatCount = int.MAX_VALUE;
-        Starling.juggler.add(_tween)
+        _body.play();
+        Starling.juggler.add(_body);
     }
 
     public function get enabled():Boolean {

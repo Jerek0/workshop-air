@@ -238,6 +238,7 @@ package fr.gobelins.workshop.game.level {
 
         public function set level(value:Object):void {
             _level = value;
+            _level.layers[0].data[20][4] = 4;
         }
 
         public function get level():Object {

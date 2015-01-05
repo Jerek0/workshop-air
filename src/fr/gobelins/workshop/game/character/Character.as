@@ -3,8 +3,7 @@
  */
 package fr.gobelins.workshop.game.character {
     import fr.gobelins.workshop.App;
-import fr.gobelins.workshop.constants.Settings;
-import fr.gobelins.workshop.events.CharacterEvent;
+    import fr.gobelins.workshop.events.CharacterEvent;
     import fr.gobelins.workshop.game.IGameEntity;
 
     import starling.animation.Tween;

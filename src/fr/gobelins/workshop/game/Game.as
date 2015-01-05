@@ -33,7 +33,6 @@ package fr.gobelins.workshop.game {
         private var _scoreView:TextField;
 
         private var _touchBegin:Number;
-        private var _jumpProgressBar:ProgressBar;
 
         public function Game() {
             super();

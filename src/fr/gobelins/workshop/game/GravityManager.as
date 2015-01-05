@@ -46,39 +46,13 @@ public class GravityManager implements IAnimatable, IGameEntity{
 
     private function _onJump(event:CharacterEvent):void {
         // TODO Gerer le saut au touch
-        /*if(_entity.y == _ground) {
-            if(event.deltaTime) {
-                var percentage:Number = ((event.deltaTime - Settings.TOUCH_MIN_DELTA_TIME) / Settings.TOUCH_MAX_DELTA_TIME);
-                if(percentage<0) percentage = 0;
-                else if (percentage > 1) percentage = 1;
 
-                _velY -= Settings.JUMP_MIN_INERTY + ((Settings.JUMP_INERTY - Settings.JUMP_MIN_INERTY) * percentage);
-
-                _gravity = Settings.GRAVITY - (Settings.GRAVITY_REDUCER_MAX * percentage);
-            } else {
-                _velY -= Settings.JUMP_INERTY;
-            }
-        }*/
-
-        if((_jumpBegin == 0 && _entity.y == _ground) || (_jumpBegin > 0 && _velY <= 0)){
+        if(Settings.CAN_JUMP_IN_THE_AIR || ((_jumpBegin == 0 && _entity.y == _ground) || (_jumpBegin > 0 && _velY <= 0))){
             if(_jumpBegin == 0) _jumpBegin = new Date().time;
-
-            /*var currentTime:Number = new Date().time;
-            var deltaTime:Number = currentTime - _jumpBegin;
-
-            var percentageTime = (Settings.TOUCH_MAX_DELTA_TIME - deltaTime) / Settings.TOUCH_MAX_DELTA_TIME;
-            if(percentageTime>1) percentageTime = 1;
-            else if(percentageTime < 0.2) percentageTime = 0;
-
-            var maxDelta = Settings.ground - Settings.CEILING;
-            var currentDelta = _entity.y - Settings.CEILING;
-            var percentageHeight = currentDelta / maxDelta;
-            if(percentageHeight>1) percentageHeight = 1;
-            else if(percentageHeight < 0.2) percentageHeight = 0;*/
 
             if(_entity.y > (Settings.CEILING + 76))
                 _velY = -(Settings.JUMP_INERTY);
-            else {
+            else if(!Settings.CAN_JUMP_IN_THE_AIR) {
                 _stopJump();
             }
         }
