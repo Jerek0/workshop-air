@@ -18,8 +18,8 @@ package fr.gobelins.workshop {
         private static var _assets:AssetManager;
         private var _pageManager:PageManager;
 
-        [Embed(source="../../../../bin/medias/logo.png")]
-        private static const Logo:Class;
+        [Embed(source="../../../../bin/medias/splashScreen.png")]
+        private static const SplashScreen:Class;
 
         public function App() {
             super();
@@ -57,23 +57,25 @@ package fr.gobelins.workshop {
             _assets.enqueue(mediasFolder.resolvePath("dotActive.png"));
             _assets.enqueue(mediasFolder.resolvePath("bkgPopup.png"));
 
-            _assets.enqueue(mediasFolder.resolvePath("dino.png"));
-            _assets.enqueue(mediasFolder.resolvePath("dino.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.png"));
+            _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("pieces.png"));
+            _assets.enqueue(mediasFolder.resolvePath("pieces.xml"));
 
 
-            var splashScreen:Image = new Image(Texture.fromBitmap(new Logo()));
+            var splashScreen:Image = new Image(Texture.fromBitmap(new SplashScreen()));
             var ratio = splashScreen.width / splashScreen.height;
-            splashScreen.width = Settings.APP_WIDTH / 2;
+            splashScreen.width = Settings.APP_WIDTH;
             splashScreen.height = splashScreen.width / ratio;
-            splashScreen.x = stage.stageWidth / 2 - splashScreen.width / 2;
-            splashScreen.y = stage.stageHeight / 2 - splashScreen.height / 2 - 40;
+            splashScreen.x = 0;
+            splashScreen.y = 0;
             addChild(splashScreen);
 
             var loading:ProgressBar = new ProgressBar(200, 20, 0xFFFFFF, 0x666666);
             addChild(loading);
             loading.alpha = 0.2;
             loading.x = stage.stageWidth / 2 - loading.width / 2;
-            loading.y = splashScreen.y + splashScreen.height + 40;
+            loading.y = stage.stageHeight - loading.height - 100;
 
             _assets.loadQueue(function(ratio:Number):void {
                 trace("Loading assets, progress:", ratio);

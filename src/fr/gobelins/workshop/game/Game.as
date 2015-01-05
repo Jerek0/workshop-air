@@ -182,20 +182,20 @@ package fr.gobelins.workshop.game {
         }
 
         public function advanceTime(time:Number):void {
-            /*if(_touchBegin > 0) {
-                var currentTime = new Date().time;
-                var deltaTime:Number = currentTime - _touchBegin;
+            if(_touchBegin > 0) {
+                //var currentTime = new Date().time;
+                //var deltaTime:Number = currentTime - _touchBegin;
 
                 _character.jump();
-
+                /*
                 if(deltaTime && deltaTime > Settings.TOUCH_MIN_DELTA_TIME) {
                     if(deltaTime < (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME)) {
                         _jumpProgressBar.percentage = (deltaTime) / (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME);
                     } else {
                         _jumpProgressBar.percentage = 1;
                     }
-                }
-            }*/
+                }*/
+            }
         }
     }
 }

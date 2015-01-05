@@ -28,16 +28,19 @@ public class Point extends Tile {
         var quad:Quad = new Quad(76,76,0xFFFF00);
         quad.x=0;
         quad.y=0;
+        quad.alpha = 0;
         addChild(quad);
 
-        //_body = new MovieClip(App.assets.getTextureAtlas("dino").getTextures("Dinosaure"));
-        //addChild(_body);
+        _body = new MovieClip(App.assets.getTextureAtlas("pieces").getTextures("piece"));
+        _body.x = quad.width / 2 - _body.width / 2;
+        _body.y = quad.height / 2 - _body.height / 2;
+        addChild(_body);
 
-        //_animate();
+        _animate();
     }
 
     private function _animate():void {
-        var _tween :Tween = new Tween(_body, 0.3);
+        var _tween :Tween = new Tween(_body, 1);
         _tween.animate("currentFrame", _body.numFrames-1);
         _tween.repeatCount = int.MAX_VALUE;
         Starling.juggler.add(_tween)

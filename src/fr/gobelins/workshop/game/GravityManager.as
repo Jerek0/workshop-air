@@ -11,6 +11,7 @@ import starling.animation.IAnimatable;
 import starling.animation.Transitions;
 import starling.core.Starling;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class GravityManager implements IAnimatable, IGameEntity{
 
@@ -35,7 +36,12 @@ public class GravityManager implements IAnimatable, IGameEntity{
     }
 
     private function _onStopJump(event:CharacterEvent):void {
+        _stopJump();
+    }
+
+    private function _stopJump():void {
         _jumpBegin = 0;
+        _entity.dispatchEvent(new CharacterEvent(CharacterEvent.FALLING));
     }
 
     private function _onJump(event:CharacterEvent):void {
@@ -73,10 +79,8 @@ public class GravityManager implements IAnimatable, IGameEntity{
             if(_entity.y > (Settings.CEILING + 76))
                 _velY = -(Settings.JUMP_INERTY);
             else {
-                _jumpBegin = 0;
+                _stopJump();
             }
-            //trace(percentageTime+" - "+percentageHeight);
-            trace(_velY);
         }
     }
 

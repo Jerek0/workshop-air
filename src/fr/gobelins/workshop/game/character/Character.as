@@ -20,6 +20,7 @@ import fr.gobelins.workshop.events.CharacterEvent;
         private var _tween:Tween;
         private var _hitbox:Quad;
         private var _state:ICharacterState = new NormalState();
+        private var _isJumping:Boolean = false;
 
         public function Character() {
             super();
@@ -28,7 +29,7 @@ import fr.gobelins.workshop.events.CharacterEvent;
         }
 
         private function _onAddedToStage(event:Event):void {
-            _body = new MovieClip(App.assets.getTextureAtlas("dino").getTextures("Dinosaure"));
+            _body = new MovieClip(App.assets.getTextureAtlas("RaptorNormal").getTextures("NormalRun"));
             _size = 1;
             addChild(_body);
 
@@ -42,7 +43,7 @@ import fr.gobelins.workshop.events.CharacterEvent;
         public function animate():void {
             _tween = new Tween(_body, 0.3);
             _tween.animate("currentFrame", _body.numFrames-1);
-            _tween.repeatCount = int.MAX_VALUE;
+            if(!_isJumping) _tween.repeatCount = int.MAX_VALUE;
         }
 
         public function set size(value:int):void {
@@ -62,22 +63,43 @@ import fr.gobelins.workshop.events.CharacterEvent;
         public function jump():void {
             // TODO Passer ça dans le state
             //if(this.y == Settings.ground) {
-                this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP));
-                addEventListener(CharacterEvent.LANDED, _onLanding);
+            if(_isJumping == false){
+                _isJumping = true;
+                _changeSkin("NormalUp");
+            }
+
+            this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP));
+            addEventListener(CharacterEvent.FALLING, _onFalling);
+            addEventListener(CharacterEvent.LANDED, _onLanding);
             //}
         }
 
         public function stopJump():void {
+            _onFalling();
             this.dispatchEvent(new CharacterEvent(CharacterEvent.STOP_JUMP));
         }
 
         private function _onLanding(event:CharacterEvent):void {
-            trace("landing");
+            _isJumping = false;
+            _changeSkin("NormalRun");
             removeEventListener(CharacterEvent.LANDED, _onLanding);
+        }
+
+        private function _onFalling(event:CharacterEvent = null):void {
+            _changeSkin("NormalDown");
         }
 
         public function get hitbox():Quad {
             return _hitbox;
+        }
+
+        private function _changeSkin(skin:String):void {
+            removeChild(_body);
+            _body = new MovieClip(App.assets.getTextureAtlas("RaptorNormal").getTextures(skin));
+            addChild(_body);
+            pause();
+            animate();
+            play();
         }
     }
 }
