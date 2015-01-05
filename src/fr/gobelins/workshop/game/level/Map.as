@@ -55,6 +55,7 @@ package fr.gobelins.workshop.game.level {
             _obstacleAirFactory = new ObstacleAirFactory(10);
             _champiFactory = new ChampiFactory(10);
             _carapaceFactory = new CarapaceFactory(10);
+            // TODO Voir si y a optim avec factory
 
             // Init our array of tiles cols showed
             _colsShowed = new Array();
@@ -122,6 +123,8 @@ package fr.gobelins.workshop.game.level {
 
         private function _checkCollisions():void {
 
+            // TODO Transferer la gestion des collisions
+
             // CHECK UNIQUEMENT LES TILES DANS LA ZONE OU LES COLLISIONS SONT POSSIBLES
             var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
 
@@ -148,7 +151,6 @@ package fr.gobelins.workshop.game.level {
             }
 
             /*
-
             // CHECK DE TOUTES LES COLLISIONS DU MONDE
             var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
             for each(var col:Array in _colsShowed) {
@@ -197,6 +199,7 @@ package fr.gobelins.workshop.game.level {
         }
 
         private function _storeTile(tile:Tile):void {
+            // TODO Utiliser un ID dans l'objet
             if(tile is Point) {
                 _pointFactory.storePoint(tile as Point);
             }

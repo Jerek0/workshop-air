@@ -8,6 +8,7 @@ public class CharacterEvent extends Event {
 
     public static const JUMP:String = "jump";
     public static const LANDED:String = "landed";
+    public static const STOP_JUMP:String = "stop_jump";
 
     public var deltaTime:Number;
 

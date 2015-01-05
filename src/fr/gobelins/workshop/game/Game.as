@@ -65,11 +65,12 @@ package fr.gobelins.workshop.game {
             _character.animate();
             _character.y = stage.stageHeight - _character.height - 80;
             _character.x = 80;
-            _characterGravity = new GravityManager(_character, _character.y);
+            Settings.ground = _character.y;
+            _characterGravity = new GravityManager(_character, Settings.ground);
 
             // MAP
             _map = new Map();
-            var levelLoader = new LevelLoader("medias/map_2.json");
+            var levelLoader:LevelLoader = new LevelLoader("medias/map_2.json");
             levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent) {
                 _map.level = event.level;
                 addChildAt(_map, 4);
@@ -90,11 +91,11 @@ package fr.gobelins.workshop.game {
             _scoreView.x = stage.stageWidth - _scoreView.width;
             _scoreView.y = _scoreView.height;
 
-            _jumpProgressBar = new ProgressBar(200, 20, 0xFFFFFF, 0x666666);
+            /*_jumpProgressBar = new ProgressBar(200, 20, 0xFFFFFF, 0x666666);
             addChild(_jumpProgressBar);
             _jumpProgressBar.x = stage.stageWidth / 2 - _jumpProgressBar.width / 2;
             _jumpProgressBar.y = stage.stageHeight - _jumpProgressBar.height - 20;
-            _jumpProgressBar.alpha = 0.2;
+            _jumpProgressBar.alpha = 0.2;*/
 
 
             this.addEventListener(TouchEvent.TOUCH, _onTouch);
@@ -103,7 +104,7 @@ package fr.gobelins.workshop.game {
         // EVENT LISTENER FUNCTIONS
 
         private function _onTouch(event:TouchEvent):void {
-            var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
+            /*var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
             if(touchBegins) {
                 _touchBegin = new Date().time;
             }
@@ -117,6 +118,18 @@ package fr.gobelins.workshop.game {
                 if(_jumpProgressBar) _jumpProgressBar.percentage = 0;
 
                 _touchBegin = 0;
+            }*/
+
+            var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
+            if(touchBegins) {
+                _touchBegin = new Date().time;
+                _character.jump();
+            }
+
+            var touchEnded : Touch = event.getTouch(this, TouchPhase.ENDED);
+            if(touchEnded) {
+                _touchBegin = 0;
+                _character.stopJump();
             }
         }
 
@@ -169,9 +182,11 @@ package fr.gobelins.workshop.game {
         }
 
         public function advanceTime(time:Number):void {
-            if(_touchBegin > 0) {
+            /*if(_touchBegin > 0) {
                 var currentTime = new Date().time;
                 var deltaTime:Number = currentTime - _touchBegin;
+
+                _character.jump();
 
                 if(deltaTime && deltaTime > Settings.TOUCH_MIN_DELTA_TIME) {
                     if(deltaTime < (Settings.TOUCH_MAX_DELTA_TIME + Settings.TOUCH_MIN_DELTA_TIME)) {
@@ -180,7 +195,7 @@ package fr.gobelins.workshop.game {
                         _jumpProgressBar.percentage = 1;
                     }
                 }
-            }
+            }*/
         }
     }
 }

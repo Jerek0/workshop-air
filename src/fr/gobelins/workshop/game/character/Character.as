@@ -2,10 +2,9 @@
  * Created by jerek0 on 19/12/2014.
  */
 package fr.gobelins.workshop.game.character {
-import flash.geom.Rectangle;
-
-import fr.gobelins.workshop.App;
-    import fr.gobelins.workshop.events.CharacterEvent;
+    import fr.gobelins.workshop.App;
+import fr.gobelins.workshop.constants.Settings;
+import fr.gobelins.workshop.events.CharacterEvent;
     import fr.gobelins.workshop.game.IGameEntity;
 
     import starling.animation.Tween;
@@ -19,8 +18,8 @@ import fr.gobelins.workshop.App;
         private var _body:MovieClip;
         private var _size:int;
         private var _tween:Tween;
-
         private var _hitbox:Quad;
+        private var _state:ICharacterState = new NormalState();
 
         public function Character() {
             super();
@@ -31,17 +30,13 @@ import fr.gobelins.workshop.App;
         private function _onAddedToStage(event:Event):void {
             _body = new MovieClip(App.assets.getTextureAtlas("dino").getTextures("Dinosaure"));
             _size = 1;
-
-            var scope = this;
-            _body.addEventListener(Event.ADDED_TO_STAGE, function(event:Event) {
-                _hitbox = new Quad(76*1, 76*1, 0xFF0000);
-                scope.addChildAt(_hitbox, 0);
-                _hitbox.x = 95;
-                _hitbox.y = 25;
-                _hitbox.alpha = 0;
-            });
-
             addChild(_body);
+
+            _hitbox = new Quad(76*1, 76*1, 0xFF0000);
+            addChildAt(_hitbox, 0);
+            _hitbox.x = 95;
+            _hitbox.y = 25;
+            _hitbox.alpha = 0;
         }
 
         public function animate():void {
@@ -64,10 +59,16 @@ import fr.gobelins.workshop.App;
             Starling.juggler.add(_tween);
         }
 
-        public function jump(deltaTime:Number):void {
-            this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP, deltaTime));
-            addEventListener(CharacterEvent.LANDED, _onLanding);
-            trace("jump for " + deltaTime);
+        public function jump():void {
+            // TODO Passer ça dans le state
+            //if(this.y == Settings.ground) {
+                this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP));
+                addEventListener(CharacterEvent.LANDED, _onLanding);
+            //}
+        }
+
+        public function stopJump():void {
+            this.dispatchEvent(new CharacterEvent(CharacterEvent.STOP_JUMP));
         }
 
         private function _onLanding(event:CharacterEvent):void {

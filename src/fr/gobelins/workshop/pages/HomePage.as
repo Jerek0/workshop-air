@@ -55,13 +55,14 @@ import starling.events.Event;
             logo.y = 50;
             addChild(logo);
 
-            var btnPlay : Button = new Button(App.assets.getTexture("btnDemarrer"));
+            var btnPlay : Button = new Button(App.assets.getTexture("btnDemarrer"),'',App.assets.getTexture("btnDemarrerDown"));
+            btnPlay.scaleWhenDown = 1;
             btnPlay.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (btnPlay.width / 2);
-            btnPlay.y = 400;
+            btnPlay.y = 300;
             btnPlay.addEventListener(Event.TRIGGERED, _onPlayTriggered);
             addChild(btnPlay);
 
-            var btnHighScores : Button = new Button(App.assets.getTexture("btnHighScores"));
+            var btnHighScores : Button = new Button(App.assets.getTexture("btnHighScores"), '', App.assets.getTexture("btnHighScoresDown"));
             btnHighScores.x = (stage.stageWidth / 4) + (stage.stageWidth/2) - (btnHighScores.width / 2);
             btnHighScores.y = btnPlay.y + btnPlay.height + 25;
             btnHighScores.addEventListener(Event.TRIGGERED, _onHighScoresTriggered);

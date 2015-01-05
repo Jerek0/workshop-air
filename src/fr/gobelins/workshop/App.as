@@ -41,8 +41,10 @@ package fr.gobelins.workshop {
             _assets.enqueue(mediasFolder.resolvePath("thirdPlan.png"));
             _assets.enqueue(mediasFolder.resolvePath("farestPlan.png"));
             _assets.enqueue(mediasFolder.resolvePath("logo.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnDemarrer.jpg"));
-            _assets.enqueue(mediasFolder.resolvePath("btnHighScores.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnDemarrer.png"));
+            _assets.enqueue(mediasFolder.resolvePath("btnDemarrerDown.png"));
+            _assets.enqueue(mediasFolder.resolvePath("btnHighScores.png"));
+            _assets.enqueue(mediasFolder.resolvePath("btnHighScoresDown.png"));
             _assets.enqueue(mediasFolder.resolvePath("btnPause.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnHome.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnSkip.jpg"));

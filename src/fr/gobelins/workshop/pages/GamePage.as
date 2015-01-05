@@ -43,8 +43,6 @@ import fr.gobelins.workshop.events.GameEvent;
             addChild(_btnPause);
 
             // ####### TUTORIAL
-            _tutorial = new Tutorial();
-            _tutorial.x = 0; _tutorial.y = 0;
             if(Settings.show_tutorial) _showTutorial();
 
             // ####### MENU PAUSE
@@ -57,14 +55,17 @@ import fr.gobelins.workshop.events.GameEvent;
         }
 
         private function _showTutorial():void {
+            _tutorial = new Tutorial();
+            _tutorial.x = 0; _tutorial.y = 0;
             _game.pause();
             addChild(_tutorial);
             _tutorial.addEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onTutorialSkip);
         }
 
         private function _onTutorialSkip(event:Event):void {
-            removeChild(_tutorial);
+            removeChild(_tutorial, true);
             _tutorial.removeEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onTutorialSkip);
+            _tutorial = null;
 
             Settings.show_tutorial = false;
             _game.play();

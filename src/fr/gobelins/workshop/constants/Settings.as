@@ -11,14 +11,14 @@ public class Settings {
     public static const THIRD_PLAN_SPEED:Number = 6;
     public static const FAREST_PLAN_SPEED:Number = 18;
 
-    public static var GRAVITY:uint = 4500;
-    public static const GRAVITY_REDUCER_MAX:uint = 2000;
+    public static var GRAVITY:uint = 2600;
+    public static var JUMP_INERTY:uint = 600;
 
-    public static const TOUCH_MIN_DELTA_TIME:uint = 80;
-    public static const TOUCH_MAX_DELTA_TIME:uint = 320;
+    public static var ground:int = 50;
+    public static const CEILING:int = 80+76;
 
-    public static const JUMP_MIN_INERTY:uint = 1200;
-    public static const JUMP_MAX_INERTY:uint = 1600;
+    /*public static const TOUCH_MIN_DELTA_TIME:uint = 80;
+    public static const TOUCH_MAX_DELTA_TIME:uint = 1200;*/
 
     public static var show_tutorial:Boolean = true;
 
