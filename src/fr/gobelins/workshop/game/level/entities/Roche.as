@@ -5,26 +5,24 @@ package fr.gobelins.workshop.game.level.entities {
 import fr.gobelins.workshop.App;
 
 import starling.core.Starling;
-
 import starling.display.MovieClip;
-
 import starling.display.Quad;
 import starling.events.Event;
 
-public class ObstacleAir extends AObstacle {
+public class Roche extends AObstacleSol {
     private var _body:MovieClip;
-    public function ObstacleAir() {
+    public function Roche() {
         super();
     }
 
     protected override function _onAddedToStage(event:Event):void {
-        var quad:Quad = new Quad(76,76,0x00FF00);
+        var quad:Quad = new Quad(76,76,0xCC0000);
         quad.x=0;
         quad.y=0;
         quad.alpha = 0;
         addChild(quad);
 
-        _body = new MovieClip(App.assets.getTextureAtlas("ElementsGameplay").getTextures("ObstacleStorm"), 40);
+        _body = new MovieClip(App.assets.getTextureAtlas("ElementsGameplay").getTextures("ObstacleRoche"), 25);
         _body.x = quad.width / 2 - _body.width / 2;
         _body.y = quad.height / 2 - _body.height / 2;
         _body.loop = true;

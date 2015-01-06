@@ -10,6 +10,7 @@ public class CharacterEvent extends Event {
     public static const LANDED:String = "landed";
     public static const STOP_JUMP:String = "stop_jump";
     public static const FALLING:String = "falling";
+    public static const CHANGED_STATE:String = "changed_state";
 
     public var deltaTime:Number;
 

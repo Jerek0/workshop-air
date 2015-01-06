@@ -66,8 +66,10 @@ package fr.gobelins.workshop {
 
             _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.png"));
             _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.xml"));
-            _assets.enqueue(mediasFolder.resolvePath("pieces.png"));
-            _assets.enqueue(mediasFolder.resolvePath("pieces.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("RaptorFly.png"));
+            _assets.enqueue(mediasFolder.resolvePath("RaptorFly.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("ElementsGameplay.png"));
+            _assets.enqueue(mediasFolder.resolvePath("ElementsGameplay.xml"));
 
 
             var splashScreen:Image = new Image(Texture.fromBitmap(new SplashScreen()));

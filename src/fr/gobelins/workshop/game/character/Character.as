@@ -33,9 +33,8 @@ package fr.gobelins.workshop.game.character {
         }
 
         private function _onAddedToStage(event:Event):void {
-            _body = new MovieClip(App.assets.getTextureAtlas("RaptorNormal").getTextures("NormalRun"));
+            _changeSkin(_state.runTextures);
             _size = 1;
-            addChild(_body);
 
             _hitbox = new Quad(76*1, 76*1, 0xFF0000);
             addChildAt(_hitbox, 0);
@@ -47,7 +46,7 @@ package fr.gobelins.workshop.game.character {
         public function animate():void {
             _tween = new Tween(_body, 0.3);
             _tween.animate("currentFrame", _body.numFrames-1);
-            if(!_isJumping) _tween.repeatCount = int.MAX_VALUE;
+            if(!_isJumping || _state.downTextures == "") _tween.repeatCount = int.MAX_VALUE;
         }
 
         public function set size(value:int):void {
@@ -57,41 +56,42 @@ package fr.gobelins.workshop.game.character {
         }
 
         public function pause():void {
-            Starling.juggler.remove(_tween);
+            if(Starling.juggler.contains(_tween))
+                Starling.juggler.remove(_tween);
         }
 
         public function play():void {
-            Starling.juggler.add(_tween);
+            if(!Starling.juggler.contains(_tween))
+                Starling.juggler.add(_tween);
         }
 
         public function jump():void {
             // TODO Passer ça dans le state
-            //if(this.y == Settings.ground) {
-            if(_isJumping == false){
+            if(_isJumping == false && _state.upTextures != ""){
                 _isJumping = true;
-                _changeSkin("NormalUp");
+                _changeSkin(_state.upTextures);
             }
 
-            this.dispatchEvent(new CharacterEvent(CharacterEvent.JUMP));
+            dispatchEvent(new CharacterEvent(CharacterEvent.JUMP));
             addEventListener(CharacterEvent.FALLING, _onFalling);
             addEventListener(CharacterEvent.LANDED, _onLanding);
-            //}
         }
 
         public function stopJump():void {
             _onFalling();
-            this.dispatchEvent(new CharacterEvent(CharacterEvent.STOP_JUMP));
+            dispatchEvent(new CharacterEvent(CharacterEvent.STOP_JUMP));
         }
 
         private function _onLanding(event:CharacterEvent):void {
             _isJumping = false;
-            _changeSkin("NormalRun");
+            if(_state.runTextures != "")
+                _changeSkin(_state.runTextures);
             removeEventListener(CharacterEvent.LANDED, _onLanding);
         }
 
         private function _onFalling(event:CharacterEvent = null):void {
-            if(!_isJumping)
-                _changeSkin("NormalDown");
+            if(!_isJumping && _state.downTextures)
+                _changeSkin(_state.downTextures);
         }
 
         public function get hitbox():Quad {
@@ -100,7 +100,7 @@ package fr.gobelins.workshop.game.character {
 
         private function _changeSkin(skin:String):void {
             removeChild(_body);
-            _body = new MovieClip(App.assets.getTextureAtlas("RaptorNormal").getTextures(skin));
+            _body = new MovieClip(App.assets.getTextureAtlas(_state.atlas).getTextures(skin));
             addChild(_body);
             pause();
             animate();
@@ -119,10 +119,13 @@ package fr.gobelins.workshop.game.character {
                         _state = new LowGravityState();
                     break;
             }
+
+            if(_isJumping && _state.downTextures != "") _changeSkin(_state.downTextures);
+            else _changeSkin(_state.runTextures);
         }
 
         public function getState():uint {
-            return (_state as NormalState).id;
+            return _state.id;
         }
     }
 }

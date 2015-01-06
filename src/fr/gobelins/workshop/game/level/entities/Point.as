@@ -27,7 +27,7 @@ public class Point extends Tile {
         quad.alpha = 0;
         addChild(quad);
 
-        _body = new MovieClip(App.assets.getTextureAtlas("pieces").getTextures("piece"), 26);
+        _body = new MovieClip(App.assets.getTextureAtlas("ElementsGameplay").getTextures("Piece"), 26);
         _body.x = quad.width / 2 - _body.width / 2;
         _body.y = quad.height / 2 - _body.height / 2;
         _body.loop = true;

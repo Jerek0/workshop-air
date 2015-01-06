@@ -41,8 +41,6 @@ import starling.events.Event;
             var character : Character = new Character();
             character.x = 200;
             addChild(character);
-            character.animate();
-            character.play();
             character.size = 2.5;
             character.y = stage.stageHeight - character.height - 100;
 

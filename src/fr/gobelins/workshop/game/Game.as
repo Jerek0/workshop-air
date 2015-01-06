@@ -69,7 +69,6 @@ import starling.animation.IAnimatable;
             // CHARACTER
             _character = new Character();
             addChild(_character);
-            _character.animate();
             _character.y = stage.stageHeight - _character.height - 80;
             _character.x = 80;
             Settings.ground = _character.y;
@@ -154,13 +153,6 @@ import starling.animation.IAnimatable;
             randomMachine.addValue(Character.LOW_GRAVITY_STATE, App.assets.getTexture("astro"));
             _popup.addChild(randomMachine);
             randomMachine.addEventListener(RandomCasinoEvent.WINNER, _onBonusFound);
-
-            /*var newState:Number = _character.getState() ;
-            while(newState == _character.getState()){
-                newState = Math.floor(Math.random()*3+1);
-            }
-            _character.changeState(newState);
-            trace(newState);*/
         }
 
         private function _onBonusFound(event:RandomCasinoEvent):void {

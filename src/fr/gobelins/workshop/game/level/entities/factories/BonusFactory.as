@@ -21,6 +21,7 @@ package fr.gobelins.workshop.game.level.entities.factories {
         }
 
         public function storeBonus(bonus:Bonus):void {
+            bonus.enabled = true;
             _bonus.push(bonus);
         }
     }

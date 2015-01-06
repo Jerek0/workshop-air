@@ -11,13 +11,13 @@ package fr.gobelins.workshop.game.level {
     import fr.gobelins.workshop.game.character.Character;
     import fr.gobelins.workshop.game.level.entities.AObstacle;
     import fr.gobelins.workshop.game.level.entities.Bonus;
-    import fr.gobelins.workshop.game.level.entities.Carapace;
-    import fr.gobelins.workshop.game.level.entities.Champi;
+    import fr.gobelins.workshop.game.level.entities.Roche;
+    import fr.gobelins.workshop.game.level.entities.Lave;
     import fr.gobelins.workshop.game.level.entities.ObstacleAir;
     import fr.gobelins.workshop.game.level.entities.Point;
     import fr.gobelins.workshop.game.level.entities.factories.BonusFactory;
-    import fr.gobelins.workshop.game.level.entities.factories.CarapaceFactory;
-    import fr.gobelins.workshop.game.level.entities.factories.ChampiFactory;
+    import fr.gobelins.workshop.game.level.entities.factories.RocheFactory;
+    import fr.gobelins.workshop.game.level.entities.factories.LaveFactory;
     import fr.gobelins.workshop.game.level.entities.factories.ObstacleAirFactory;
     import fr.gobelins.workshop.game.level.entities.factories.PointFactory;
 
@@ -35,8 +35,8 @@ package fr.gobelins.workshop.game.level {
         private var _pointFactory:PointFactory;
         private var _bonusFactory:BonusFactory;
         private var _obstacleAirFactory:ObstacleAirFactory;
-        private var _champiFactory:ChampiFactory;
-        private var _carapaceFactory:CarapaceFactory;
+        private var _champiFactory:LaveFactory;
+        private var _carapaceFactory:RocheFactory;
 
         // POOLING COLS
         private var _colsShowed:Array;
@@ -53,8 +53,8 @@ package fr.gobelins.workshop.game.level {
             _pointFactory = new PointFactory(27);
             _bonusFactory = new BonusFactory();
             _obstacleAirFactory = new ObstacleAirFactory(10);
-            _champiFactory = new ChampiFactory(10);
-            _carapaceFactory = new CarapaceFactory(10);
+            _champiFactory = new LaveFactory(10);
+            _carapaceFactory = new RocheFactory(10);
             // TODO Voir si y a optim avec factory
 
             // Init our array of tiles cols showed
@@ -163,10 +163,10 @@ package fr.gobelins.workshop.game.level {
                     return _pointFactory.getPoint();
                     break;
                 case 2:
-                    return _carapaceFactory.getCarapace();
+                    return _carapaceFactory.getItem();
                     break;
                 case 1:
-                    return _champiFactory.getChampi();
+                    return _champiFactory.getItem();
                     break;
                 default:
                     // NOTHING BUT AIR
@@ -183,11 +183,11 @@ package fr.gobelins.workshop.game.level {
             else if(tile is ObstacleAir) {
                 _obstacleAirFactory.storeObstacle(tile as ObstacleAir);
             }
-            else if(tile is Champi) {
-                _champiFactory.storeChampi(tile as Champi);
+            else if(tile is Lave) {
+                _champiFactory.storeItem(tile as Lave);
             }
-            else if(tile is Carapace) {
-                _carapaceFactory.storeCarapace(tile as Carapace);
+            else if(tile is Roche) {
+                _carapaceFactory.storeItem(tile as Roche);
             }
             else if(tile is Bonus) {
                 _bonusFactory.storeBonus(tile as Bonus);

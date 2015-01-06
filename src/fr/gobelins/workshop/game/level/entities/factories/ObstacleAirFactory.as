@@ -22,6 +22,7 @@ public class ObstacleAirFactory {
         }
 
         public function storeObstacle(obstacle:ObstacleAir):void {
+            obstacle.enabled = true;
             _obstacles.push(obstacle);
         }
     }
