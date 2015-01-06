@@ -7,9 +7,11 @@ public class Settings {
     public static const APP_WIDTH:uint = 1280;
     public static const APP_HEIGHT:uint = 768;
 
-    public static var SECOND_PLAN_SPEED:Number = 1.5;
-    public static var THIRD_PLAN_SPEED:Number = 6;
-    public static var FAREST_PLAN_SPEED:Number = 18;
+    public static const FONT:String = "Cubano";
+
+    public static const SECOND_PLAN_SPEED:Number = 1.5;
+    public static const THIRD_PLAN_SPEED:Number = 6;
+    public static const FAREST_PLAN_SPEED:Number = 18;
 
     public static const TILE_SIZE:uint = 76;
 

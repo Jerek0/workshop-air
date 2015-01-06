@@ -4,6 +4,7 @@
 package fr.gobelins.workshop.pages {
     import fr.gobelins.workshop.App;
 import fr.gobelins.workshop.constants.PageID;
+import fr.gobelins.workshop.constants.Settings;
 import fr.gobelins.workshop.events.PagesEvent;
 
 import starling.display.Button;
@@ -17,7 +18,7 @@ import starling.display.Button;
 
         protected override function _init():void {
             // ##### TEMPORARY
-            var text:TextField = new TextField(stage.stageWidth, 100, "HIGHSCORES PAGE");
+            var text:TextField = new TextField(stage.stageWidth, 100, "HIGHSCORES PAGE", Settings.FONT);
             text.y = stage.stageHeight / 2 - text.height / 2;
             text.color = 0xFFFFFF;
             text.fontSize = 48;

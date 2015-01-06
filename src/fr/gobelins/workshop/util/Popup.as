@@ -2,6 +2,8 @@
  * Created by jerek0 on 03/01/2015.
  */
 package fr.gobelins.workshop.util {
+import fr.gobelins.workshop.constants.Settings;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -25,7 +27,7 @@ public class Popup extends Sprite {
         var background:Image = new Image(_backgroundTexture);
         addChild(background);
 
-        var title:TextField = new TextField(background.width, 50, _title);
+        var title:TextField = new TextField(background.width, 50, _title, Settings.FONT);
         title.color = 0xFFFFFF;
         title.fontSize = 28;
         addChild(title);

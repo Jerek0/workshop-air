@@ -91,11 +91,12 @@ import starling.animation.IAnimatable;
             });
 
             // UI
-            _scoreView = new TextField(200, 50, ""+_score);
+            _scoreView = new TextField(100, 40, ""+_score, Settings.FONT);
             addChild(_scoreView);
+            _scoreView.hAlign = "right";
             _scoreView.color = 0xFFFFFF;
-            _scoreView.fontSize = 24;
-            _scoreView.x = stage.stageWidth - _scoreView.width;
+            _scoreView.fontSize = 42;
+            _scoreView.x = stage.stageWidth - _scoreView.width - 100;
             _scoreView.y = _scoreView.height;
         }
 

@@ -21,6 +21,9 @@ package fr.gobelins.workshop {
         [Embed(source="../../../../bin/medias/splashScreen.png")]
         private static const SplashScreen:Class;
 
+        [Embed(source="../../../../bin/medias/Cubano.ttf", embedAsCFF="false", fontFamily="Cubano")]
+        private static const Cubano:Class;
+
         public function App() {
             super();
         }
@@ -45,7 +48,7 @@ package fr.gobelins.workshop {
             _assets.enqueue(mediasFolder.resolvePath("btnDemarrerDown.png"));
             _assets.enqueue(mediasFolder.resolvePath("btnHighScores.png"));
             _assets.enqueue(mediasFolder.resolvePath("btnHighScoresDown.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnPause.jpg"));
+            _assets.enqueue(mediasFolder.resolvePath("btnPause.png"));
             _assets.enqueue(mediasFolder.resolvePath("btnHome.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnSkip.jpg"));
             _assets.enqueue(mediasFolder.resolvePath("btnRetry.jpg"));

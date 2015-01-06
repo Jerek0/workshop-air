@@ -37,10 +37,10 @@ import fr.gobelins.workshop.events.GameEvent;
             _game.play();
 
             _btnPause = new Button(App.assets.getTexture("btnPause"));
-            _btnPause.x = 20;
-            _btnPause.y = 20;
             _btnPause.addEventListener(Event.TRIGGERED, _onPause);
             addChild(_btnPause);
+            _btnPause.x = stage.stageWidth - _btnPause.width - 20;
+            _btnPause.y = 20;
 
             // TODO OPTIM PAUSE GAMEOVER TUTO
             // ####### TUTORIAL
@@ -106,11 +106,11 @@ import fr.gobelins.workshop.events.GameEvent;
 
             removeChild(_btnPause);
 
-            var score:TextField = new TextField(_gameOver.width, 50, "Score : "+_game.score);
+            var score:TextField = new TextField(_gameOver.width, 100, ""+_game.score, Settings.FONT);
             score.x = _gameOver.width / 2 - score.width / 2;
             score.y = 100;
             score.color = 0xFFFFFF;
-            score.fontSize = 26;
+            score.fontSize = 96;
             _gameOver.addChild(score);
 
             var btnRetry : Button = new Button(App.assets.getTexture("btnRetry"));
