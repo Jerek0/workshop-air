@@ -2,12 +2,11 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-import fr.gobelins.workshop.constants.PageID;
-import fr.gobelins.workshop.events.PagesEvent;
+    import fr.gobelins.workshop.constants.PageID;
+    import fr.gobelins.workshop.events.PagesEvent;
 
-import starling.core.Starling;
-
-import starling.display.Sprite;
+    import starling.core.Starling;
+    import starling.display.Sprite;
     import starling.events.EventDispatcher;
 
     public class PageManager extends EventDispatcher {
@@ -25,6 +24,10 @@ import starling.display.Sprite;
             _addPage(PageID.HOME);
         }
 
+        /*
+        When a request for a new page is done,
+        this function removes the current one and load the one which is asked instead
+         */
         private function _onChangePage(event:PagesEvent):void {
             var transitionPage : TransitionPage = new TransitionPage();
             _holder.addChild(transitionPage);
@@ -40,6 +43,7 @@ import starling.display.Sprite;
             }, 0.5);
         }
 
+        // Load a page with a given ID
         private function _addPage(idPage:String):void {
             switch(idPage) {
                 case PageID.HOME:
@@ -56,6 +60,7 @@ import starling.display.Sprite;
             _currentPage.addEventListener(PagesEvent.CHANGE, _onChangePage);
         }
 
+        // Remove the current page
         private function _removePage():void {
             _currentPage.removeEventListener(PagesEvent.CHANGE, _onChangePage);
             _holder.removeChild(_currentPage,true);

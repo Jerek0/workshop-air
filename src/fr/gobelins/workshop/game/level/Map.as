@@ -35,8 +35,8 @@ package fr.gobelins.workshop.game.level {
         private var _pointFactory:PointFactory;
         private var _bonusFactory:BonusFactory;
         private var _obstacleAirFactory:ObstacleAirFactory;
-        private var _champiFactory:LaveFactory;
-        private var _carapaceFactory:RocheFactory;
+        private var _laveFactory:LaveFactory;
+        private var _rocheFactory:RocheFactory;
 
         // POOLING COLS
         private var _colsShowed:Array;
@@ -53,9 +53,9 @@ package fr.gobelins.workshop.game.level {
             _pointFactory = new PointFactory(27);
             _bonusFactory = new BonusFactory();
             _obstacleAirFactory = new ObstacleAirFactory(10);
-            _champiFactory = new LaveFactory(10);
-            _carapaceFactory = new RocheFactory(10);
-            // TODO Voir si y a optim avec factory
+            _laveFactory = new LaveFactory(10);
+            _rocheFactory = new RocheFactory(10);
+            // TODO Possibilité d'optimisation des factories
 
             // Init our array of tiles cols showed
             _colsShowed = new Array();
@@ -92,7 +92,7 @@ package fr.gobelins.workshop.game.level {
 
             _colsShowed[id] =  new Array();
 
-            var tile:Tile = null;
+            var tile:Tile;
 
             // AFFICHAGE DE CHAQUE LIGNE DE LA COLONNE "ID"
             for each(var row:int in _level.layers[0].data[id]) {
@@ -122,9 +122,6 @@ package fr.gobelins.workshop.game.level {
         }
 
         private function _checkCollisions():void {
-
-            // TODO Transferer la gestion des collisions
-
             // CHECK UNIQUEMENT LES TILES DANS LA ZONE OU LES COLLISIONS SONT POSSIBLES
             var hitboxPlayer:Rectangle = new Rectangle(_player.x + player.hitbox.x, _player.y + _player.hitbox.y, _player.hitbox.width, _player.hitbox.height);
 
@@ -163,10 +160,10 @@ package fr.gobelins.workshop.game.level {
                     return _pointFactory.getPoint();
                     break;
                 case 2:
-                    return _carapaceFactory.getItem();
+                    return _rocheFactory.getItem();
                     break;
                 case 1:
-                    return _champiFactory.getItem();
+                    return _laveFactory.getItem();
                     break;
                 default:
                     // NOTHING BUT AIR
@@ -176,21 +173,25 @@ package fr.gobelins.workshop.game.level {
         }
 
         private function _storeTile(tile:Tile):void {
-            // TODO Utiliser un ID dans l'objet
-            if(tile is Point) {
-                _pointFactory.storePoint(tile as Point);
-            }
-            else if(tile is ObstacleAir) {
-                _obstacleAirFactory.storeObstacle(tile as ObstacleAir);
-            }
-            else if(tile is Lave) {
-                _champiFactory.storeItem(tile as Lave);
-            }
-            else if(tile is Roche) {
-                _carapaceFactory.storeItem(tile as Roche);
-            }
-            else if(tile is Bonus) {
-                _bonusFactory.storeBonus(tile as Bonus);
+            switch(tile.id) {
+                case 5:
+                    _obstacleAirFactory.storeObstacle(tile as ObstacleAir);
+                    break;
+                case 4:
+                    _bonusFactory.storeBonus(tile as Bonus);
+                    break;
+                case 3:
+                    _pointFactory.storePoint(tile as Point);
+                    break;
+                case 2:
+                    _rocheFactory.storeItem(tile as Roche);
+                    break;
+                case 1:
+                    _laveFactory.storeItem(tile as Lave);
+                    break;
+                default:
+                    // NOTHING
+                    break;
             }
 
             removeChild(tile, true);
@@ -214,6 +215,8 @@ package fr.gobelins.workshop.game.level {
 
         public function set level(value:Object):void {
             _level = value;
+
+            // Quick hack to put a bonus at the beginning of the level
             _level.layers[0].data[20][4] = 4;
         }
 

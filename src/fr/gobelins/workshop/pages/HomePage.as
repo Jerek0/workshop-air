@@ -23,9 +23,10 @@ import starling.events.Event;
 
         protected override function _init():void {
 
+            // When we go on the home page, we want the next time the player plays to toggle tutorial
             Settings.show_tutorial = true;
 
-            // ###### DECOR
+            // ###### DECORS
             var background : Image = new Image(App.assets.getTextureAtlas("Backgrounds").getTexture("Fond"));
             addChild(background);
 

@@ -89,7 +89,7 @@ import starling.display.Sprite;
             // MAP
             _map = new Map();
             var levelLoader:LevelLoader = new LevelLoader("medias/maps/map_2.json");
-            levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent) {
+            levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent):void {
                 _map.level = event.level;
                 addChildAt(_map, 4);
                 _map.y = 80;
@@ -123,16 +123,7 @@ import starling.display.Sprite;
             _btnPause.y = 40;
         }
 
-        private function _onPause(event:Event):void {
-            dispatchEvent(new GameEvent(GameEvent.PAUSE));
-        }
-
-        // EVENT LISTENER FUNCTIONS
-
-        private function _onComplete(event:GameEvent):void {
-            dispatchEvent(event);
-        }
-
+        /* CONTROLS MANAGEMENT */
         private function _onTouch(event:TouchEvent):void {
 
             var touchBegins : Touch = event.getTouch(this, TouchPhase.BEGAN);
@@ -146,6 +137,15 @@ import starling.display.Sprite;
                 _touchBegin = 0;
                 _character.stopJump();
             }
+        }
+
+        // EVENT LISTENER FUNCTIONS
+        private function _onPause(event:Event):void {
+            dispatchEvent(new GameEvent(GameEvent.PAUSE));
+        }
+
+        private function _onComplete(event:GameEvent):void {
+            dispatchEvent(event);
         }
 
         private function _onCollision(event:CollisionEvent):void {
@@ -236,7 +236,7 @@ import starling.display.Sprite;
             _characterGravity.play();
             if(_map) _map.play();
             else if(!Settings.show_tutorial) {
-                _map.addEventListener(Event.ADDED_TO_STAGE, function(event:Event) {
+                _map.addEventListener(Event.ADDED_TO_STAGE, function(event:Event):void {
                     _map.play();
                 });
             }

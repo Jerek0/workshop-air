@@ -11,8 +11,10 @@ import starling.events.Event;
 
 public class Lave extends AObstacleSol {
     private var _body:MovieClip;
+
     public function Lave() {
         super();
+        _id = 1;
     }
 
     protected override function _onAddedToStage(event:Event):void {

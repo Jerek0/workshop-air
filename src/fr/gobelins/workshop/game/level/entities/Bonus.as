@@ -16,6 +16,7 @@ import starling.display.Quad;
         private var _body:MovieClip;
         public function Bonus() {
             super();
+            _id = 4;
         }
 
         protected override function _onAddedToStage(event:Event):void {

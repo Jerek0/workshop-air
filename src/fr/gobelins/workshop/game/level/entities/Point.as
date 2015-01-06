@@ -18,6 +18,7 @@ public class Point extends Tile {
 
     public function Point() {
         super();
+        _id = 3;
     }
 
     protected override function _onAddedToStage(event:Event):void {

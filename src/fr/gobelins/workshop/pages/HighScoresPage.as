@@ -29,6 +29,7 @@ public class HighScoresPage extends APage {
         public function HighScoresPage() {
             super();
 
+            // Launch the request for the TOP 10 highscores as soon as the highscores page is asked
             var urlRequest : URLRequest = new URLRequest("http://www.cordechasse.fr/gobelins/CRM14/scripts/getTopScores.php");
             var requestVars:URLVariables = new URLVariables();
             requestVars.project_name = "RaptoRun";
@@ -41,11 +42,14 @@ public class HighScoresPage extends APage {
             _urlLoader.load(urlRequest);
         }
 
+        /* This function is called when we got the TOP 10 */
         private function _onComplete(event:flash.events.Event):void {
             _highScores = JSON.parse(_urlLoader.data).scores;
 
-            var highScoresViews = new Vector.<TextField>();
-            var cpt = 0;
+            var highScoresViews:Vector.<TextField> = new Vector.<TextField>();
+            var cpt:int = 0;
+
+            // We show the highscores line by line in here (user_name & score)
             for each(var highScore:Object in _highScores) {
                 var name:TextField = new TextField(800, 48, ((highScore.user_name as String).length > 15 ? highScore.user_name.slice(0, 15) : highScore.user_name), Settings.FONT);
                 name.color = Settings.PURPLE;
@@ -70,6 +74,7 @@ public class HighScoresPage extends APage {
             }
         }
 
+        /* Called when added to stage */
         protected override function _init():void {
             // ###### DECOR
             var background : Image = new Image(App.assets.getTextureAtlas("Backgrounds").getTexture("Fond"));
@@ -92,13 +97,11 @@ public class HighScoresPage extends APage {
             overlay.alpha = 0.8;
             addChild(overlay);
 
-            // UI
-
+            // ###### UI
             var btnHome : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("home-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("home-btn-active"));
             addChild(btnHome);
             btnHome.x = 85;
             btnHome.y = stage.stageHeight - btnHome.height - 70;
-            btnHome
             btnHome.addEventListener(starling.events.Event.TRIGGERED, _onHomeTriggered);
 
             var logo : Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("logo"));

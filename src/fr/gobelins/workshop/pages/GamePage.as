@@ -2,19 +2,18 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-import feathers.controls.TextInput;
+    import feathers.controls.TextInput;
 
-import flash.events.Event;
+    import flash.events.Event;
+    import flash.net.URLLoader;
+    import flash.net.URLRequest;
+    import flash.net.URLRequestMethod;
+    import flash.net.URLVariables;
 
-import flash.net.URLLoader;
-import flash.net.URLRequest;
-import flash.net.URLRequestMethod;
-import flash.net.URLVariables;
-
-import fr.gobelins.workshop.App;
+    import fr.gobelins.workshop.App;
     import fr.gobelins.workshop.constants.PageID;
-import fr.gobelins.workshop.constants.Settings;
-import fr.gobelins.workshop.events.GameEvent;
+    import fr.gobelins.workshop.constants.Settings;
+    import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.PagesEvent;
     import fr.gobelins.workshop.game.Game;
     import fr.gobelins.workshop.util.Popup;
@@ -22,9 +21,9 @@ import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.TutorialEvent;
 
     import starling.display.Button;
-import starling.display.Image;
-import starling.display.Quad;
-import starling.events.Event;
+    import starling.display.Image;
+    import starling.display.Quad;
+    import starling.events.Event;
     import starling.text.TextField;
 
     public class GamePage extends APage {
@@ -49,20 +48,17 @@ import starling.events.Event;
             addChild(_game);
             _game.play();
 
-            // TODO OPTIM PAUSE GAMEOVER TUTO
-            // ####### TUTORIAL
+            // TUTORIAL (Only if asked for)
             if(Settings.show_tutorial) _showTutorial();
 
-            // ####### MENU PAUSE
-            _pause = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
-
-            // ###### GAME OVER
-            _gameOver = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
+            // Register GameEvents
             _game.addEventListener(GameEvent.GAME_OVER, _onGameOver);
             _game.addEventListener(GameEvent.COMPLETE, _onGameOver);
             _game.addEventListener(GameEvent.PAUSE, _onPause);
         }
 
+
+        /* TUTORIAL FUNCTIONS */
         private function _showTutorial():void {
             _tutorial = new Tutorial();
             _tutorial.x = 0; _tutorial.y = 0;
@@ -80,6 +76,7 @@ import starling.events.Event;
             _game.play();
         }
 
+        /* PAUSE / GAME OVER FUNCTIONS */
         private function _onPause(event:starling.events.Event):void {
             _game.pause();
 
@@ -88,6 +85,7 @@ import starling.events.Event;
             _overlay.x = 0; _overlay.y = 0;
             addChild(_overlay);
 
+            _pause = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
             addChild(_pause);
             _pause.x = (stage.stageWidth / 2) - (_pause.width / 2);
             _pause.y = (stage.stageHeight / 2) - (_pause.height / 2);
@@ -131,6 +129,7 @@ import starling.events.Event;
             _overlay.x = 0; _overlay.y = 0;
             addChild(_overlay);
 
+            _gameOver = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
             addChild(_gameOver);
             _gameOver.x = (stage.stageWidth / 2) - (_gameOver.width / 2);
             _gameOver.y = (stage.stageHeight / 2) - (_gameOver.height / 2);
@@ -178,14 +177,13 @@ import starling.events.Event;
             _pseudoInput.padding = 40;
             _pseudoInput.textEditorProperties.fontFamily = Settings.FONT;
             _pseudoInput.textEditorProperties.fontSize = 32;
-            /*input.selectRange( 0, input.text.length );
-             input.addEventListener( Event.CHANGE, input_changeHandler );*/
             _gameOver.addChild(_pseudoInput);
             _pseudoInput.x = _gameOver.width - btnShare.width - 50;
             _pseudoInput.y = _gameOver.height - (btnShare.height * 2) - 100;
 
         }
 
+        /* BUTTONS TO OTHER PAGES TRIGGERED */
         private function _onHomeTriggered(event:starling.events.Event):void {
             _game.pause();
             dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HOME));
@@ -214,8 +212,8 @@ import starling.events.Event;
         }
 
         private function _onResumeTriggered(event:starling.events.Event):void {
-            removeChild(_pause);
-            removeChild(_overlay);
+            removeChild(_pause, true);
+            removeChild(_overlay, true);
             _pause.removeChildren();
 
             _game.play();

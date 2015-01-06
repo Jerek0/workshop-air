@@ -15,6 +15,7 @@ public class ObstacleAir extends AObstacle {
     private var _body:MovieClip;
     public function ObstacleAir() {
         super();
+        _id = 5;
     }
 
     protected override function _onAddedToStage(event:Event):void {

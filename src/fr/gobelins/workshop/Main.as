@@ -2,15 +2,13 @@ package fr.gobelins.workshop {
     import flash.display.Sprite;
     import flash.display.StageAlign;
     import flash.display.StageScaleMode;
-import flash.display3D.Context3DProfile;
-import flash.geom.Rectangle;
+    import flash.display3D.Context3DProfile;
+    import flash.geom.Rectangle;
 
     import starling.core.Starling;
     import starling.events.Event;
-    import starling.utils.HAlign;
     import starling.utils.RectangleUtil;
     import starling.utils.ScaleMode;
-    import starling.utils.VAlign;
 
     [SWF(frameRate="60", backgroundColor="#000000")]
     public class Main extends Sprite {

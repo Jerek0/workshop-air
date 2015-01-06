@@ -13,6 +13,7 @@ public class Roche extends AObstacleSol {
     private var _body:MovieClip;
     public function Roche() {
         super();
+        _id = 2;
     }
 
     protected override function _onAddedToStage(event:Event):void {

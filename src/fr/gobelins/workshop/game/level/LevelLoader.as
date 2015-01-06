@@ -16,7 +16,7 @@ public class LevelLoader extends EventDispatcher{
     private var _map:Array;
 
     public function LevelLoader(mapToLoad:String) {
-        // TODO Hériter de URLLoader plutot
+        // TODO Possibilité d'hériter d'URLLoader
         var urlRequest : URLRequest = new URLRequest(mapToLoad);
         _urlLoader = new URLLoader();
         _urlLoader.addEventListener(flash.events.Event.COMPLETE, _onComplete);
@@ -33,13 +33,13 @@ public class LevelLoader extends EventDispatcher{
 
         // REMPLISSAGE DU TABLEAU
         var col:int = 0;
-        for(var i:int = 0; i < _data.layers[0].data.length; i++) {
-            col = i % _data.layers[0].width;
-            _map[col].push(_data.layers[0].data[i]);
+        for(var j:int = 0; j < _data.layers[0].data.length; j++) {
+            col = j % _data.layers[0].width;
+            _map[col].push(_data.layers[0].data[j]);
         }
 
         _data.layers[0].data = _map;
-        // TODO Optim _map
+        // TODO Optim _map possible
 
         this.dispatchEvent(new LevelLoaderEvent(LevelLoaderEvent.LEVEL_LOADED, _data));
     }

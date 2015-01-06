@@ -66,7 +66,6 @@ package fr.gobelins.workshop.game.character {
         }
 
         public function jump():void {
-            // TODO Passer ça dans le state
             if(_isJumping == false && _state.upTextures != ""){
                 _isJumping = true;
                 _changeSkin(_state.upTextures);
@@ -122,10 +121,6 @@ package fr.gobelins.workshop.game.character {
 
             if(_isJumping && _state.downTextures != "") _changeSkin(_state.downTextures);
             else _changeSkin(_state.runTextures);
-        }
-
-        public function getState():uint {
-            return _state.id;
         }
     }
 }

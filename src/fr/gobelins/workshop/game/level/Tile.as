@@ -10,6 +10,7 @@ import starling.text.TextField;
 public class Tile extends Sprite {
 
     private var _enabled:Boolean = true;
+    protected var _id:uint = 0;
 
     public function Tile() {
         super();
@@ -32,6 +33,10 @@ public class Tile extends Sprite {
         _enabled = value;
         if(value == true) this.alpha = 1;
         else this.alpha = 0;
+    }
+
+    public function get id():uint {
+        return _id;
     }
 }
 }
