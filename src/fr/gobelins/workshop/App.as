@@ -39,7 +39,7 @@ package fr.gobelins.workshop {
 
             _assets = new AssetManager();
 
-            _assets.enqueue(mediasFolder.resolvePath("background.png"));
+            /*_assets.enqueue(mediasFolder.resolvePath("background.png"));
             _assets.enqueue(mediasFolder.resolvePath("secondPlan.png"));
             _assets.enqueue(mediasFolder.resolvePath("thirdPlan.png"));
             _assets.enqueue(mediasFolder.resolvePath("farestPlan.png"));
@@ -65,14 +65,21 @@ package fr.gobelins.workshop {
             _assets.enqueue(mediasFolder.resolvePath("tireuseDown.png"));
             _assets.enqueue(mediasFolder.resolvePath("normal.png"));
             _assets.enqueue(mediasFolder.resolvePath("redBull.png"));
-            _assets.enqueue(mediasFolder.resolvePath("astro.png"));
+            _assets.enqueue(mediasFolder.resolvePath("astro.png"));*/
 
             _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.png"));
             _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.xml"));
             _assets.enqueue(mediasFolder.resolvePath("RaptorFly.png"));
             _assets.enqueue(mediasFolder.resolvePath("RaptorFly.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("RaptorMoon.png"));
+            _assets.enqueue(mediasFolder.resolvePath("RaptorMoon.xml"));
             _assets.enqueue(mediasFolder.resolvePath("ElementsGameplay.png"));
             _assets.enqueue(mediasFolder.resolvePath("ElementsGameplay.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("Backgrounds.png"));
+            _assets.enqueue(mediasFolder.resolvePath("Backgrounds.xml"));
+
+            _assets.enqueue(mediasFolder.resolvePath("userInterface.png"));
+            _assets.enqueue(mediasFolder.resolvePath("userInterface.xml"));
 
 
             var splashScreen:Image = new Image(Texture.fromBitmap(new SplashScreen()));

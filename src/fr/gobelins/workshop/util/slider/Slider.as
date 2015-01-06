@@ -113,21 +113,6 @@ public class Slider extends Sprite {
                     amorti = 12;
                 }
                 this.x += (touchMoves.getLocation(this).x - touchMoves.getPreviousLocation(this).x) / amorti;
-
-                //var localPos:Point = touchMoves.getLocation(this);
-                // We move the whole slider relatively to the current touch position
-
-                /*trace(this.width);
-                trace(this._slideWidth);
-                if(this.x <= 0 && this.x >= -(this.width - _slideWidth) ) {
-                    this.x += localPos.x - _touchBeginLocal.x;
-                } else if(this.x > 0) { // We slow the move on the prev offset
-                    var offset = (localPos.x - _touchBeginLocal.x) * (1/(1 * Math.ceil(Math.abs(this.x))));
-                    this.x += offset;
-                } else { // We slow the move on the next offset
-                    var offset = (localPos.x - _touchBeginLocal.x) * (1/(1 * Math.ceil(Math.abs(this.x) - this.width + _slideWidth)));
-                    this.x += offset;
-                }*/
             }
 
             // TOUCH ENDS

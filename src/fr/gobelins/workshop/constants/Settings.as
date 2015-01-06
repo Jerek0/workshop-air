@@ -9,6 +9,10 @@ public class Settings {
 
     public static const FONT:String = "Cubano";
 
+    public static const PURPLE:int = 0x271a35;
+    public static const GREEN:int = 0x86ce3c;
+    public static const YELLOW:int = 0xecb353;
+
     public static const SECOND_PLAN_SPEED:Number = 1.5;
     public static const THIRD_PLAN_SPEED:Number = 6;
     public static const FAREST_PLAN_SPEED:Number = 18;

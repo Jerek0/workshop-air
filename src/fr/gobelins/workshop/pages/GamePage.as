@@ -13,7 +13,8 @@ import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.TutorialEvent;
 
     import starling.display.Button;
-    import starling.events.Event;
+import starling.display.Quad;
+import starling.events.Event;
     import starling.text.TextField;
 
     public class GamePage extends APage {
@@ -24,7 +25,7 @@ import fr.gobelins.workshop.events.GameEvent;
         private var _pause:Popup;
         private var _gameOver:Popup;
 
-        private var _btnPause:Button;
+        private var _overlay:Quad;
 
         public function GamePage() {
             super();
@@ -36,23 +37,18 @@ import fr.gobelins.workshop.events.GameEvent;
             addChild(_game);
             _game.play();
 
-            _btnPause = new Button(App.assets.getTexture("btnPause"));
-            _btnPause.addEventListener(Event.TRIGGERED, _onPause);
-            addChild(_btnPause);
-            _btnPause.x = stage.stageWidth - _btnPause.width - 20;
-            _btnPause.y = 20;
-
             // TODO OPTIM PAUSE GAMEOVER TUTO
             // ####### TUTORIAL
             if(Settings.show_tutorial) _showTutorial();
 
             // ####### MENU PAUSE
-            _pause = new Popup("Pause", App.assets.getTexture("bkgPopup"));
+            _pause = new Popup("Pause", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
 
             // ###### GAME OVER
-            _gameOver = new Popup("GameOver", App.assets.getTexture("bkgPopup"));
+            _gameOver = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
             _game.addEventListener(GameEvent.GAME_OVER, _onGameOver);
             _game.addEventListener(GameEvent.COMPLETE, _onGameOver);
+            _game.addEventListener(GameEvent.PAUSE, _onPause);
         }
 
         private function _showTutorial():void {
@@ -75,23 +71,28 @@ import fr.gobelins.workshop.events.GameEvent;
         private function _onPause(event:Event):void {
             _game.pause();
 
+            _overlay = new Quad(stage.stageWidth, stage.stageHeight, Settings.PURPLE);
+            _overlay.alpha = 0.8;
+            _overlay.x = 0; _overlay.y = 0;
+            addChild(_overlay);
+
             addChild(_pause);
             _pause.x = (stage.stageWidth / 2) - (_pause.width / 2);
             _pause.y = (stage.stageHeight / 2) - (_pause.height / 2);
 
-            var btnHome : Button = new Button(App.assets.getTexture("btnHome"));
+            var btnHome : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("home-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("home-btn-active"));
             btnHome.x = _pause.width - btnHome.width - 20;
             btnHome.y = _pause.height - btnHome.height - 20;
             btnHome.addEventListener(Event.TRIGGERED, _onHomeTriggered);
             _pause.addChild(btnHome);
 
-            var btnRetry : Button = new Button(App.assets.getTexture("btnRetry"));
+            var btnRetry : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("retry-btn"), "",App.assets.getTextureAtlas("userInterface").getTexture("retry-btn-active"));
             btnRetry.x = 20;
             btnRetry.y = _pause.height - btnRetry.height - 20;
             btnRetry.addEventListener(Event.TRIGGERED, _onRetryTriggered);
             _pause.addChild(btnRetry);
 
-            var btnResume : Button = new Button(App.assets.getTexture("btnResume"));
+            var btnResume : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("resume-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("resume-btn-active"));
             btnResume.x = _pause.width / 2 - btnResume.width / 2;
             btnResume.y = 100;
             btnResume.addEventListener(Event.TRIGGERED, _onResumeTriggered);
@@ -100,11 +101,15 @@ import fr.gobelins.workshop.events.GameEvent;
 
         private function _onGameOver(event:GameEvent):void {
             _game.pause();
+
+            _overlay = new Quad(stage.stageWidth, stage.stageHeight, Settings.PURPLE);
+            _overlay.alpha = 0.8;
+            _overlay.x = 0; _overlay.y = 0;
+            addChild(_overlay);
+
             addChild(_gameOver);
             _gameOver.x = (stage.stageWidth / 2) - (_gameOver.width / 2);
             _gameOver.y = (stage.stageHeight / 2) - (_gameOver.height / 2);
-
-            removeChild(_btnPause);
 
             var score:TextField = new TextField(_gameOver.width, 100, ""+_game.score, Settings.FONT);
             score.x = _gameOver.width / 2 - score.width / 2;
@@ -113,13 +118,13 @@ import fr.gobelins.workshop.events.GameEvent;
             score.fontSize = 96;
             _gameOver.addChild(score);
 
-            var btnRetry : Button = new Button(App.assets.getTexture("btnRetry"));
+            var btnRetry : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("retry-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("retry-btn-active"));
             btnRetry.x = 20;
             btnRetry.y = _gameOver.height - btnRetry.height - 20;
             btnRetry.addEventListener(Event.TRIGGERED, _onRetryTriggered);
             _gameOver.addChild(btnRetry);
 
-            var btnHighScores : Button = new Button(App.assets.getTexture("btnHighScores"));
+            var btnHighScores : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("highscore-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("highscore-btn-active"));
             btnHighScores.x = _gameOver.width - btnHighScores.width - 20;
             btnHighScores.y = _gameOver.height - btnHighScores.height - 20;
             btnHighScores.addEventListener(Event.TRIGGERED, _onHighScoresTriggered);
@@ -139,6 +144,7 @@ import fr.gobelins.workshop.events.GameEvent;
 
         private function _onResumeTriggered(event:Event):void {
             removeChild(_pause);
+            removeChild(_overlay);
             _pause.removeChildren();
 
             _game.play();

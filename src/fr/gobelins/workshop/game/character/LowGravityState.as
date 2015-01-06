@@ -6,10 +6,10 @@ import fr.gobelins.workshop.constants.Settings;
 
 public class LowGravityState implements ICharacterState {
     private var _id:uint = Character.LOW_GRAVITY_STATE;
-    private var _atlas:String = "RaptorNormal";
-    private var _runTextures:String = "NormalRun";
-    private var _upTextures:String = "NormalUp";
-    private var _downTextures:String = "NormalDown";
+    private var _atlas:String = "RaptorMoon";
+    private var _runTextures:String = "MoonRun";
+    private var _upTextures:String = "MoonUp";
+    private var _downTextures:String = "MoonDown";
 
     public function LowGravityState() {
         Settings.GRAVITY = Settings.LOW_GRAVITY;

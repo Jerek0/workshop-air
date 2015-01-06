@@ -30,7 +30,7 @@ public class DotsContainer extends Sprite {
         for each(var slide:DisplayObject in _slider.slides) {
             var dot:Dot = new Dot(_dotInactiveTexture);
             dot.y = 0;
-            dot.x = (dot.width + 5)*_dots.length;
+            dot.x = (dot.width + 15)*_dots.length;
             _dots.push(dot);
             addChild(dot);
         }

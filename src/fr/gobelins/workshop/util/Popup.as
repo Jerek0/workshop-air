@@ -27,9 +27,9 @@ public class Popup extends Sprite {
         var background:Image = new Image(_backgroundTexture);
         addChild(background);
 
-        var title:TextField = new TextField(background.width, 50, _title, Settings.FONT);
+        var title:TextField = new TextField(background.width, 80, _title, Settings.FONT);
         title.color = 0xFFFFFF;
-        title.fontSize = 28;
+        title.fontSize = 70;
         addChild(title);
         title.x = (background.width / 2) - (title.width / 2);
         title.y = 10;

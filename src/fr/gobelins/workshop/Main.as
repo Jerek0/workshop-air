@@ -2,7 +2,8 @@ package fr.gobelins.workshop {
     import flash.display.Sprite;
     import flash.display.StageAlign;
     import flash.display.StageScaleMode;
-    import flash.geom.Rectangle;
+import flash.display3D.Context3DProfile;
+import flash.geom.Rectangle;
 
     import starling.core.Starling;
     import starling.events.Event;
@@ -29,7 +30,7 @@ package fr.gobelins.workshop {
             Starling.multitouchEnabled = false;
             Starling.handleLostContext = true;
 
-            _starling = new Starling(App, stage, viewPort);
+            _starling = new Starling(App, stage, viewPort, null, "auto", Context3DProfile.BASELINE_EXTENDED);
             _starling.addEventListener(Event.ROOT_CREATED, _onRootCreated);
             _starling.stage.stageWidth = _stageWidth;
             _starling.stage.stageHeight = stage.fullScreenHeight / stage.fullScreenWidth * _stageWidth;

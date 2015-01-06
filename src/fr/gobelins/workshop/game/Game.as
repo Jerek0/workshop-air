@@ -6,6 +6,7 @@ package fr.gobelins.workshop.game {
     import fr.gobelins.workshop.constants.Settings;
 import fr.gobelins.workshop.events.CollisionEvent;
 import fr.gobelins.workshop.events.GameEvent;
+import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.LevelLoaderEvent;
 import fr.gobelins.workshop.events.RandomCasinoEvent;
 import fr.gobelins.workshop.game.character.Character;
@@ -21,8 +22,11 @@ import fr.gobelins.workshop.util.RandomCasino;
 
 import starling.animation.IAnimatable;
     import starling.core.Starling;
-    import starling.display.Image;
-    import starling.display.Sprite;
+import starling.display.Button;
+import starling.display.DisplayObject;
+import starling.display.Image;
+import starling.display.Quad;
+import starling.display.Sprite;
     import starling.events.Event;
     import starling.events.Touch;
     import starling.events.TouchEvent;
@@ -41,6 +45,10 @@ import starling.animation.IAnimatable;
 
         private var _touchBegin:Number;
         private var _popup:Popup;
+        private var _overlay:DisplayObject;
+        private var _btnPause:Button;
+
+        private var _touchZone:Quad;
 
         public function Game() {
             super();
@@ -56,15 +64,19 @@ import starling.animation.IAnimatable;
         private function _onAddedToStage(event:Event):void {
 
             // ###### DECOR
-            var background : Image = new Image(App.assets.getTexture("background"));
+            var background : Image = new Image(App.assets.getTextureAtlas("Backgrounds").getTexture("Fond"));
             addChild(background);
 
-            _scene.push(new ParallaxBackground(App.assets.getTexture("farestPlan"), Settings.FAREST_PLAN_SPEED));
-            _scene.push(new ParallaxBackground(App.assets.getTexture("thirdPlan"), Settings.THIRD_PLAN_SPEED));
-            _scene.push(new ParallaxBackground(App.assets.getTexture("secondPlan"), Settings.SECOND_PLAN_SPEED));
+            _scene.push(new ParallaxBackground(App.assets.getTextureAtlas("Backgrounds").getTexture("PlanFarest"), Settings.FAREST_PLAN_SPEED));
+            _scene.push(new ParallaxBackground(App.assets.getTextureAtlas("Backgrounds").getTexture("PlanThird"), Settings.THIRD_PLAN_SPEED));
+            _scene.push(new ParallaxBackground(App.assets.getTextureAtlas("Backgrounds").getTexture("PlanSecond"), Settings.SECOND_PLAN_SPEED));
 
             for each(var parallax:ParallaxBackground in _scene)
                 addChild(parallax);
+
+            _scene[0].y = 140;
+            _scene[1].y = 240;
+            _scene[2].y = stage.stageHeight - _scene[2].height + 1;
 
             // CHARACTER
             _character = new Character();
@@ -91,13 +103,28 @@ import starling.animation.IAnimatable;
             });
 
             // UI
-            _scoreView = new TextField(100, 40, ""+_score, Settings.FONT);
+            _scoreView = new TextField(100, 50, ""+_score, Settings.FONT);
             addChild(_scoreView);
             _scoreView.hAlign = "right";
             _scoreView.color = 0xFFFFFF;
-            _scoreView.fontSize = 42;
+            _scoreView.fontSize = 50;
             _scoreView.x = stage.stageWidth - _scoreView.width - 100;
-            _scoreView.y = _scoreView.height;
+            _scoreView.y = 33;
+
+            _touchZone = new Quad(stage.stageWidth, stage.stageHeight, 0xFFFFFFF);
+            _touchZone.x = 0; _touchZone.y = 0;
+            _touchZone.alpha = 0;
+            addChild(_touchZone);
+
+            _btnPause = new Button(App.assets.getTextureAtlas("userInterface").getTexture("Pause0000"));
+            _btnPause.addEventListener(Event.TRIGGERED, _onPause);
+            addChild(_btnPause);
+            _btnPause.x = stage.stageWidth - _btnPause.width - 40;
+            _btnPause.y = 40;
+        }
+
+        private function _onPause(event:Event):void {
+            dispatchEvent(new GameEvent(GameEvent.PAUSE));
         }
 
         // EVENT LISTENER FUNCTIONS
@@ -143,21 +170,51 @@ import starling.animation.IAnimatable;
         private function _onBonus(event:GameEvent):void {
             pause();
 
-            _popup = new Popup("Game bonus !", App.assets.getTexture("bkgPopup"));
+            _overlay = new Quad(stage.stageWidth, stage.stageHeight, Settings.PURPLE);
+            _overlay.alpha = 0.8;
+            _overlay.x = 0; _overlay.y = 0;
+            addChild(_overlay);
+
+            _popup = new Popup("", App.assets.getTextureAtlas("userInterface").getTexture("bg-roulette"));
             addChild(_popup);
             _popup.x = stage.stageWidth / 2 - _popup.width / 2;
             _popup.y = stage.stageHeight / 2 - _popup.height / 2;
 
-            var randomMachine : RandomCasino = new RandomCasino(App.assets.getTexture("bkgWindowCasino"), App.assets.getTexture("tireuseUp"), App.assets.getTexture("tireuseDown"), App.assets.getTexture("bkgLauncherCasino"));
-            randomMachine.addValue(Character.NORMAL_STATE, App.assets.getTexture("normal"));
-            randomMachine.addValue(Character.FLY_STATE, App.assets.getTexture("redBull"));
-            randomMachine.addValue(Character.LOW_GRAVITY_STATE, App.assets.getTexture("astro"));
+            var title:TextField = new TextField(stage.stageWidth, 80, "Win a bonus !", Settings.FONT);
+            title.color = 0xFFFFFF;
+            title.fontSize = 70;
+            _popup.addChild(title);
+            title.x = _popup.width / 3 - title.width / 2;
+            title.y = 30;
+
+            var randomMachine : RandomCasino = new RandomCasino(App.assets.getTextureAtlas("userInterface").getTexture("case"), App.assets.getTextureAtlas("userInterface").getTexture("tireuse-1"), App.assets.getTextureAtlas("userInterface").getTexture("tireuse-2"), App.assets.getTextureAtlas("userInterface").getTexture("tireuse"));
+            randomMachine.addValue(Character.NORMAL_STATE, App.assets.getTextureAtlas("userInterface").getTexture("tireuse-raptor"));
+            randomMachine.addValue(Character.FLY_STATE, App.assets.getTextureAtlas("userInterface").getTexture("tireuse-redbull"));
+            randomMachine.addValue(Character.LOW_GRAVITY_STATE, App.assets.getTextureAtlas("userInterface").getTexture("tireuse-astro"));
             _popup.addChild(randomMachine);
+            randomMachine.y = 150;
+            randomMachine.x = 70;
             randomMachine.addEventListener(RandomCasinoEvent.WINNER, _onBonusFound);
+
+            var winnerBottom : Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("gagnant"));
+            randomMachine.addChildAt(winnerBottom, 0);
+            winnerBottom.x = randomMachine.width - winnerBottom.width - 60;
+            winnerBottom.y = randomMachine.height - winnerBottom.height - 60;
+
+            var winnerTop : Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("gagnant"));
+            randomMachine.addChildAt(winnerTop, 0);
+            winnerTop.x = randomMachine.width - winnerTop.width - 60;
+            winnerTop.y = 0;
+
+            var pull : Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("tirez"));
+            _popup.addChild(pull);
+            pull.x = randomMachine.x + randomMachine.width - pull.width;
+            pull.y = 20;
         }
 
         private function _onBonusFound(event:RandomCasinoEvent):void {
             _popup.removeChildren();
+            removeChild(_overlay, true);
             removeChild(_popup, true);
             _popup = null;
 
@@ -183,7 +240,7 @@ import starling.animation.IAnimatable;
                     _map.play();
                 });
             }
-            addEventListener(TouchEvent.TOUCH, _onTouch);
+            _touchZone.addEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
         public function pause():void {
@@ -194,7 +251,8 @@ import starling.animation.IAnimatable;
             _characterGravity.pause();
             if(_map) _map.pause();
 
-            removeEventListener(TouchEvent.TOUCH, _onTouch);
+            _touchBegin = 0;
+            _touchZone.removeEventListener(TouchEvent.TOUCH, _onTouch);
         }
 
         // GETTERS / SETTERS
