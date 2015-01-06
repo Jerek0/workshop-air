@@ -13,6 +13,7 @@ import fr.gobelins.workshop.events.GameEvent;
     import fr.gobelins.workshop.events.TutorialEvent;
 
     import starling.display.Button;
+import starling.display.Image;
 import starling.display.Quad;
 import starling.events.Event;
     import starling.text.TextField;
@@ -42,7 +43,7 @@ import starling.events.Event;
             if(Settings.show_tutorial) _showTutorial();
 
             // ####### MENU PAUSE
-            _pause = new Popup("Pause", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
+            _pause = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
 
             // ###### GAME OVER
             _gameOver = new Popup("", App.assets.getTextureAtlas("Backgrounds").getTexture("BgPauseGameOver"));
@@ -81,22 +82,34 @@ import starling.events.Event;
             _pause.y = (stage.stageHeight / 2) - (_pause.height / 2);
 
             var btnHome : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("home-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("home-btn-active"));
-            btnHome.x = _pause.width - btnHome.width - 20;
-            btnHome.y = _pause.height - btnHome.height - 20;
+            btnHome.x = _pause.width - btnHome.width - 50;
+            btnHome.y = _pause.height - btnHome.height - 50;
             btnHome.addEventListener(Event.TRIGGERED, _onHomeTriggered);
             _pause.addChild(btnHome);
 
             var btnRetry : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("retry-btn"), "",App.assets.getTextureAtlas("userInterface").getTexture("retry-btn-active"));
-            btnRetry.x = 20;
-            btnRetry.y = _pause.height - btnRetry.height - 20;
+            btnRetry.x = 50;
+            btnRetry.y = _pause.height - btnRetry.height - 50;
             btnRetry.addEventListener(Event.TRIGGERED, _onRetryTriggered);
             _pause.addChild(btnRetry);
 
             var btnResume : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("resume-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("resume-btn-active"));
             btnResume.x = _pause.width / 2 - btnResume.width / 2;
-            btnResume.y = 100;
+            btnResume.y = 50;
             btnResume.addEventListener(Event.TRIGGERED, _onResumeTriggered);
             _pause.addChild(btnResume);
+
+            var scoreLibelle:Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("yourscore"));
+            scoreLibelle.x = _pause.width / 2 - scoreLibelle.width / 2;
+            scoreLibelle.y = 210;
+            _pause.addChild(scoreLibelle);
+
+            var score:TextField = new TextField(_pause.width, 140, ""+_game.score, Settings.FONT);
+            score.x = _pause.width / 2 - score.width / 2;
+            score.y = 280;
+            score.color = 0xFFFFFF;
+            score.fontSize = 140;
+            _pause.addChild(score);
         }
 
         private function _onGameOver(event:GameEvent):void {
@@ -111,23 +124,42 @@ import starling.events.Event;
             _gameOver.x = (stage.stageWidth / 2) - (_gameOver.width / 2);
             _gameOver.y = (stage.stageHeight / 2) - (_gameOver.height / 2);
 
-            var score:TextField = new TextField(_gameOver.width, 100, ""+_game.score, Settings.FONT);
-            score.x = _gameOver.width / 2 - score.width / 2;
+            var title:Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("gameover"));
+            _gameOver.addChild(title);
+            title.x = _gameOver.width / 2 - _gameOver.width / 4 - title.width / 2;
+            title.y = 30;
+
+            var logo : Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("logo"));
+            var logoRatio:Number = logo.width / logo.height;
+            _gameOver.addChild(logo);
+            logo.width = (_gameOver.width / 2) - 180;
+            logo.height = logo.width / logoRatio;
+            logo.y = title.y + title.height;
+            logo.x = (_gameOver.width / 2) - (_gameOver.width / 4) - (logo.width / 2);
+
+            var scoreLibelle:Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("yourscore"));
+            _gameOver.addChild(scoreLibelle);
+            scoreLibelle.x = _gameOver.width / 2 + _gameOver.width / 4 - scoreLibelle.width / 2;
+            scoreLibelle.y = 30;
+
+            var score:TextField = new TextField(_gameOver.width / 2, 140, ""+_game.score, Settings.FONT);
+            score.x = _gameOver.width / 2;
             score.y = 100;
             score.color = 0xFFFFFF;
-            score.fontSize = 96;
+            score.fontSize = 140;
             _gameOver.addChild(score);
 
             var btnRetry : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("retry-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("retry-btn-active"));
-            btnRetry.x = 20;
-            btnRetry.y = _gameOver.height - btnRetry.height - 20;
+            btnRetry.x = 50;
+            btnRetry.y = _gameOver.height - btnRetry.height - 50;
             btnRetry.addEventListener(Event.TRIGGERED, _onRetryTriggered);
-            _gameOver.addChild(btnRetry);
 
+            _gameOver.addChild(btnRetry);
             var btnHighScores : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("highscore-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("highscore-btn-active"));
-            btnHighScores.x = _gameOver.width - btnHighScores.width - 20;
-            btnHighScores.y = _gameOver.height - btnHighScores.height - 20;
+            btnHighScores.x = _gameOver.width - btnHighScores.width - 50;
+            btnHighScores.y = _gameOver.height - btnHighScores.height - 50;
             btnHighScores.addEventListener(Event.TRIGGERED, _onHighScoresTriggered);
+
             _gameOver.addChild(btnHighScores);
 
         }

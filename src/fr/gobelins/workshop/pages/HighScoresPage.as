@@ -104,8 +104,13 @@ import starling.events.Event;
             addChild(logo);
             logo.width = 350;
             logo.height = logo.width / logoRatio;
-            logo.y = btnHome.y - logo.height - 140;
+            logo.y = btnHome.y - logo.height - 180;
             logo.x = 85;
+
+            var title : Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("top10"));
+            addChild(title);
+            title.y = logo.y - title.height + 80;
+            title.x = 85;
 
             _highScoresBackground = new Image(App.assets.getTextureAtlas("Backgrounds").getTexture("bg-top10"));
             addChild(_highScoresBackground);
