@@ -88,7 +88,7 @@ import starling.display.Sprite;
 
             // MAP
             _map = new Map();
-            var levelLoader:LevelLoader = new LevelLoader("medias/map_2.json");
+            var levelLoader:LevelLoader = new LevelLoader("medias/maps/map_2.json");
             levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent) {
                 _map.level = event.level;
                 addChildAt(_map, 4);
@@ -116,7 +116,7 @@ import starling.display.Sprite;
             _touchZone.alpha = 0;
             addChild(_touchZone);
 
-            _btnPause = new Button(App.assets.getTextureAtlas("userInterface").getTexture("Pause0000"));
+            _btnPause = new Button(App.assets.getTextureAtlas("userInterface").getTexture("JeuPause0000"));
             _btnPause.addEventListener(Event.TRIGGERED, _onPause);
             addChild(_btnPause);
             _btnPause.x = stage.stageWidth - _btnPause.width - 40;

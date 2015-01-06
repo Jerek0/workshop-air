@@ -3,8 +3,11 @@
  */
 package fr.gobelins.workshop {
     import flash.filesystem.File;
+import flash.media.Sound;
+import flash.media.SoundChannel;
+import flash.net.URLRequest;
 
-    import fr.gobelins.workshop.constants.Settings;
+import fr.gobelins.workshop.constants.Settings;
     import fr.gobelins.workshop.pages.PageManager;
     import fr.gobelins.workshop.util.ProgressBar;
 
@@ -21,7 +24,7 @@ package fr.gobelins.workshop {
         [Embed(source="../../../../bin/medias/splashScreen.png")]
         private static const SplashScreen:Class;
 
-        [Embed(source="../../../../bin/medias/Cubano.ttf", embedAsCFF="false", fontFamily="Cubano")]
+        [Embed(source="../../../../bin/medias/fonts/Cubano.ttf", embedAsCFF="false", fontFamily="Cubano")]
         private static const Cubano:Class;
 
         public function App() {
@@ -39,47 +42,18 @@ package fr.gobelins.workshop {
 
             _assets = new AssetManager();
 
-            /*_assets.enqueue(mediasFolder.resolvePath("background.png"));
-            _assets.enqueue(mediasFolder.resolvePath("secondPlan.png"));
-            _assets.enqueue(mediasFolder.resolvePath("thirdPlan.png"));
-            _assets.enqueue(mediasFolder.resolvePath("farestPlan.png"));
-            _assets.enqueue(mediasFolder.resolvePath("logo.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnDemarrer.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnDemarrerDown.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnHighScores.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnHighScoresDown.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnPause.png"));
-            _assets.enqueue(mediasFolder.resolvePath("btnHome.jpg"));
-            _assets.enqueue(mediasFolder.resolvePath("btnSkip.jpg"));
-            _assets.enqueue(mediasFolder.resolvePath("btnRetry.jpg"));
-            _assets.enqueue(mediasFolder.resolvePath("btnResume.jpg"));
-            _assets.enqueue(mediasFolder.resolvePath("slide001.png"));
-            _assets.enqueue(mediasFolder.resolvePath("slide002.png"));
-            _assets.enqueue(mediasFolder.resolvePath("slide003.png"));
-            _assets.enqueue(mediasFolder.resolvePath("dotInactive.png"));
-            _assets.enqueue(mediasFolder.resolvePath("dotActive.png"));
-            _assets.enqueue(mediasFolder.resolvePath("bkgPopup.png"));
-            _assets.enqueue(mediasFolder.resolvePath("bkgWindowCasino.png"));
-            _assets.enqueue(mediasFolder.resolvePath("bkgLauncherCasino.png"));
-            _assets.enqueue(mediasFolder.resolvePath("tireuseUp.png"));
-            _assets.enqueue(mediasFolder.resolvePath("tireuseDown.png"));
-            _assets.enqueue(mediasFolder.resolvePath("normal.png"));
-            _assets.enqueue(mediasFolder.resolvePath("redBull.png"));
-            _assets.enqueue(mediasFolder.resolvePath("astro.png"));*/
-
-            _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.png"));
-            _assets.enqueue(mediasFolder.resolvePath("RaptorNormal.xml"));
-            _assets.enqueue(mediasFolder.resolvePath("RaptorFly.png"));
-            _assets.enqueue(mediasFolder.resolvePath("RaptorFly.xml"));
-            _assets.enqueue(mediasFolder.resolvePath("RaptorMoon.png"));
-            _assets.enqueue(mediasFolder.resolvePath("RaptorMoon.xml"));
-            _assets.enqueue(mediasFolder.resolvePath("ElementsGameplay.png"));
-            _assets.enqueue(mediasFolder.resolvePath("ElementsGameplay.xml"));
-            _assets.enqueue(mediasFolder.resolvePath("Backgrounds.png"));
-            _assets.enqueue(mediasFolder.resolvePath("Backgrounds.xml"));
-
-            _assets.enqueue(mediasFolder.resolvePath("userInterface.png"));
-            _assets.enqueue(mediasFolder.resolvePath("userInterface.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("raptor/RaptorNormal.png"));
+            _assets.enqueue(mediasFolder.resolvePath("raptor/RaptorNormal.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("raptor/RaptorFly.png"));
+            _assets.enqueue(mediasFolder.resolvePath("raptor/RaptorFly.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("raptor/RaptorMoon.png"));
+            _assets.enqueue(mediasFolder.resolvePath("raptor/RaptorMoon.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("spritesheets/ElementsGameplay.png"));
+            _assets.enqueue(mediasFolder.resolvePath("spritesheets/ElementsGameplay.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("spritesheets/Backgrounds.png"));
+            _assets.enqueue(mediasFolder.resolvePath("spritesheets/Backgrounds.xml"));
+            _assets.enqueue(mediasFolder.resolvePath("spritesheets/userInterface.png"));
+            _assets.enqueue(mediasFolder.resolvePath("spritesheets/userInterface.xml"));
 
 
             var splashScreen:Image = new Image(Texture.fromBitmap(new SplashScreen()));

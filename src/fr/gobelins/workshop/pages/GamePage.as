@@ -2,7 +2,16 @@
  * Created by jerek0 on 18/12/2014.
  */
 package fr.gobelins.workshop.pages {
-    import fr.gobelins.workshop.App;
+import feathers.controls.TextInput;
+
+import flash.events.Event;
+
+import flash.net.URLLoader;
+import flash.net.URLRequest;
+import flash.net.URLRequestMethod;
+import flash.net.URLVariables;
+
+import fr.gobelins.workshop.App;
     import fr.gobelins.workshop.constants.PageID;
 import fr.gobelins.workshop.constants.Settings;
 import fr.gobelins.workshop.events.GameEvent;
@@ -27,6 +36,8 @@ import starling.events.Event;
         private var _gameOver:Popup;
 
         private var _overlay:Quad;
+
+        private var _pseudoInput:TextInput;
 
         public function GamePage() {
             super();
@@ -60,7 +71,7 @@ import starling.events.Event;
             _tutorial.addEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onTutorialSkip);
         }
 
-        private function _onTutorialSkip(event:Event):void {
+        private function _onTutorialSkip(event:starling.events.Event):void {
             removeChild(_tutorial, true);
             _tutorial.removeEventListener(TutorialEvent.TUTORIAL_SKIPPED, _onTutorialSkip);
             _tutorial = null;
@@ -69,7 +80,7 @@ import starling.events.Event;
             _game.play();
         }
 
-        private function _onPause(event:Event):void {
+        private function _onPause(event:starling.events.Event):void {
             _game.pause();
 
             _overlay = new Quad(stage.stageWidth, stage.stageHeight, Settings.PURPLE);
@@ -84,19 +95,19 @@ import starling.events.Event;
             var btnHome : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("home-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("home-btn-active"));
             btnHome.x = _pause.width - btnHome.width - 50;
             btnHome.y = _pause.height - btnHome.height - 50;
-            btnHome.addEventListener(Event.TRIGGERED, _onHomeTriggered);
+            btnHome.addEventListener(starling.events.Event.TRIGGERED, _onHomeTriggered);
             _pause.addChild(btnHome);
 
             var btnRetry : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("retry-btn"), "",App.assets.getTextureAtlas("userInterface").getTexture("retry-btn-active"));
             btnRetry.x = 50;
             btnRetry.y = _pause.height - btnRetry.height - 50;
-            btnRetry.addEventListener(Event.TRIGGERED, _onRetryTriggered);
+            btnRetry.addEventListener(starling.events.Event.TRIGGERED, _onRetryTriggered);
             _pause.addChild(btnRetry);
 
             var btnResume : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("resume-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("resume-btn-active"));
             btnResume.x = _pause.width / 2 - btnResume.width / 2;
             btnResume.y = 50;
-            btnResume.addEventListener(Event.TRIGGERED, _onResumeTriggered);
+            btnResume.addEventListener(starling.events.Event.TRIGGERED, _onResumeTriggered);
             _pause.addChild(btnResume);
 
             var scoreLibelle:Image = new Image(App.assets.getTextureAtlas("userInterface").getTexture("yourscore"));
@@ -152,29 +163,57 @@ import starling.events.Event;
             var btnRetry : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("retry-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("retry-btn-active"));
             btnRetry.x = 50;
             btnRetry.y = _gameOver.height - btnRetry.height - 50;
-            btnRetry.addEventListener(Event.TRIGGERED, _onRetryTriggered);
-
+            btnRetry.addEventListener(starling.events.Event.TRIGGERED, _onRetryTriggered);
             _gameOver.addChild(btnRetry);
-            var btnHighScores : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("highscore-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("highscore-btn-active"));
-            btnHighScores.x = _gameOver.width - btnHighScores.width - 50;
-            btnHighScores.y = _gameOver.height - btnHighScores.height - 50;
-            btnHighScores.addEventListener(Event.TRIGGERED, _onHighScoresTriggered);
 
-            _gameOver.addChild(btnHighScores);
+            var btnShare : Button = new Button(App.assets.getTextureAtlas("userInterface").getTexture("share-btn"), "", App.assets.getTextureAtlas("userInterface").getTexture("share-btn-active"));
+            btnShare.x = _gameOver.width - btnShare.width - 50;
+            btnShare.y = _gameOver.height - btnShare.height - 50;
+            btnShare.addEventListener(starling.events.Event.TRIGGERED, _onShareTriggered);
+            _gameOver.addChild(btnShare);
+
+            _pseudoInput = new TextInput();
+            _pseudoInput.backgroundSkin = new Image(App.assets.getTextureAtlas("Backgrounds").getTexture("FondPseudo"));
+            _pseudoInput.text = "Enter your name";
+            _pseudoInput.padding = 40;
+            _pseudoInput.textEditorProperties.fontFamily = Settings.FONT;
+            _pseudoInput.textEditorProperties.fontSize = 32;
+            /*input.selectRange( 0, input.text.length );
+             input.addEventListener( Event.CHANGE, input_changeHandler );*/
+            _gameOver.addChild(_pseudoInput);
+            _pseudoInput.x = _gameOver.width - btnShare.width - 50;
+            _pseudoInput.y = _gameOver.height - (btnShare.height * 2) - 100;
 
         }
 
-        private function _onHomeTriggered(event:Event):void {
+        private function _onHomeTriggered(event:starling.events.Event):void {
             _game.pause();
             dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HOME));
         }
 
-        private function _onHighScoresTriggered(event:Event):void {
-            _game.pause();
-            dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HIGHSCORES));
+        private function _onShareTriggered(event:starling.events.Event):void {
+            if(_pseudoInput.text != "Enter your name") {
+                _game.pause();
+
+                var urlRequest:URLRequest = new URLRequest("http://www.cordechasse.fr/gobelins/CRM14/scripts/setScore.php");
+                var requestVars:URLVariables = new URLVariables();
+                requestVars.project_name = "RaptoRun";
+                requestVars.user_name = _pseudoInput.text;
+                requestVars.score = _game.score;
+                urlRequest.data = requestVars;
+                urlRequest.method = URLRequestMethod.POST;
+
+                var urlLoader : URLLoader = new URLLoader();
+                urlLoader.load(urlRequest);
+                urlLoader.addEventListener(flash.events.Event.COMPLETE, function():void {
+                    dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.HIGHSCORES));
+                });
+            } else {
+                _pseudoInput.setFocus();
+            }
         }
 
-        private function _onResumeTriggered(event:Event):void {
+        private function _onResumeTriggered(event:starling.events.Event):void {
             removeChild(_pause);
             removeChild(_overlay);
             _pause.removeChildren();
@@ -182,7 +221,7 @@ import starling.events.Event;
             _game.play();
         }
 
-        private function _onRetryTriggered(event:Event):void {
+        private function _onRetryTriggered(event:starling.events.Event):void {
             dispatchEvent(new PagesEvent(PagesEvent.CHANGE, PageID.GAME));
         }
     }

@@ -19,8 +19,9 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.events.Event;
     import starling.text.TextField;
+import starling.utils.VAlign;
 
-    public class HighScoresPage extends APage {
+public class HighScoresPage extends APage {
         private var _urlLoader:URLLoader;
         private var _highScores:Object;
         private var _highScoresBackground:Image;
@@ -46,10 +47,11 @@ import starling.events.Event;
             var highScoresViews = new Vector.<TextField>();
             var cpt = 0;
             for each(var highScore:Object in _highScores) {
-                var name:TextField = new TextField(400, 48, highScore.user_name, Settings.FONT);
+                var name:TextField = new TextField(800, 48, ((highScore.user_name as String).length > 15 ? highScore.user_name.slice(0, 15) : highScore.user_name), Settings.FONT);
                 name.color = Settings.PURPLE;
                 name.fontSize = 48;
                 name.hAlign = "left";
+                //name.vAlign = starling.utils.VAlign.TOP;
                 if(cpt > 0) name.y = highScoresViews[cpt - 1].y + name.height + 5;
                 else name.y = _highScoresBackground.y + 80;
                 name.x = _highScoresBackground.x + 20;

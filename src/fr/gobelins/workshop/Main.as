@@ -34,7 +34,7 @@ import flash.geom.Rectangle;
             _starling.addEventListener(Event.ROOT_CREATED, _onRootCreated);
             _starling.stage.stageWidth = _stageWidth;
             _starling.stage.stageHeight = stage.fullScreenHeight / stage.fullScreenWidth * _stageWidth;
-            _starling.showStatsAt(HAlign.LEFT, VAlign.TOP, 2);
+            //_starling.showStatsAt(HAlign.LEFT, VAlign.TOP, 2);
             _starling.start();
         }
 
