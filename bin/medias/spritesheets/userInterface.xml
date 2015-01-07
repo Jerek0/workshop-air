@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="userInterface.png">
+	<!-- Created with Adobe Flash Professional version 14.0.0.110 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="JeuPause0000" x="1069" y="1513" width="29" height="44" pivotX="0" pivotY="0"/>
+	<SubTexture name="StepOne" x="720" y="262" width="1112" height="412" pivotX="0" pivotY="0"/>
+	<SubTexture name="StepThree" x="0" y="679" width="1112" height="412" pivotX="0" pivotY="0"/>
+	<SubTexture name="StepTwo" x="0" y="1096" width="1112" height="412" pivotX="0" pivotY="0"/>
+	<SubTexture name="bg-roulette" x="0" y="2142" width="1164" height="655" pivotX="0" pivotY="0"/>
+	<SubTexture name="case" x="1169" y="2142" width="715" height="450" pivotX="0" pivotY="0"/>
+	<SubTexture name="gagnant" x="1889" y="2142" width="130" height="98" pivotX="0" pivotY="0"/>
+	<SubTexture name="gameover" x="1103" y="1513" width="249" height="168" pivotX="0" pivotY="0"/>
+	<SubTexture name="go-btn" x="1117" y="1096" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="go-btn-active" x="1477" y="1096" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="highscore-btn" x="0" y="0" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="highscore-btn-active" x="360" y="0" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="home-btn" x="720" y="0" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="home-btn-active" x="1080" y="0" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="logo" x="0" y="1513" width="1064" height="624" pivotX="0" pivotY="0"/>
+	<SubTexture name="menu" x="1837" y="1096" width="32" height="32" pivotX="0" pivotY="0"/>
+	<SubTexture name="menu-active" x="1874" y="1096" width="32" height="32" pivotX="0" pivotY="0"/>
+	<SubTexture name="play-btn" x="1440" y="0" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="play-btn-active" x="0" y="131" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="resume-btn" x="360" y="131" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="resume-btn-active" x="720" y="131" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="retry-btn" x="1080" y="131" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="retry-btn-active" x="1440" y="131" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="share-btn" x="0" y="262" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="share-btn-active" x="360" y="262" width="355" height="126" pivotX="0" pivotY="0"/>
+	<SubTexture name="tireuse" x="0" y="2802" width="272" height="201" pivotX="0" pivotY="0"/>
+	<SubTexture name="tireuse-1" x="277" y="2802" width="136" height="520" pivotX="0" pivotY="0"/>
+	<SubTexture name="tireuse-2" x="418" y="2802" width="136" height="520" pivotX="0" pivotY="0"/>
+	<SubTexture name="tireuse-astro" x="559" y="2802" width="200" height="200" pivotX="0" pivotY="0"/>
+	<SubTexture name="tireuse-raptor" x="764" y="2802" width="200" height="200" pivotX="0" pivotY="0"/>
+	<SubTexture name="tireuse-redbull" x="969" y="2802" width="200" height="200" pivotX="0" pivotY="0"/>
+	<SubTexture name="tirez" x="1174" y="2802" width="261" height="94" pivotX="0" pivotY="0"/>
+	<SubTexture name="top10" x="1563" y="1513" width="334" height="147" pivotX="0" pivotY="0"/>
+	<SubTexture name="yourscore" x="1357" y="1513" width="201" height="77" pivotX="0" pivotY="0"/>
+</TextureAtlas>

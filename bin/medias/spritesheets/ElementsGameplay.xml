@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ElementsGameplay.png">
+	<!-- Created with Adobe Flash Professional version 14.0.0.110 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="Bonus0000" x="0" y="0" width="78" height="78" pivotX="126.1" pivotY="16.3" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0001" x="78" y="0" width="79" height="78"/>
+	<SubTexture name="Bonus0002" x="157" y="0" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0003" x="235" y="0" width="77" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0004" x="312" y="0" width="77" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0005" x="389" y="0" width="78" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0006" x="467" y="0" width="79" height="78"/>
+	<SubTexture name="Bonus0007" x="546" y="0" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0008" x="624" y="0" width="79" height="78"/>
+	<SubTexture name="Bonus0009" x="703" y="0" width="79" height="78"/>
+	<SubTexture name="Bonus0010" x="782" y="0" width="77" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0011" x="859" y="0" width="77" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0012" x="936" y="0" width="79" height="78"/>
+	<SubTexture name="Bonus0013" x="0" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0014" x="79" y="78" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0015" x="157" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0016" x="236" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0017" x="315" y="78" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0018" x="393" y="78" width="77" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0019" x="470" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0020" x="549" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0021" x="628" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0022" x="707" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0023" x="786" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0024" x="865" y="78" width="79" height="78"/>
+	<SubTexture name="Bonus0025" x="944" y="78" width="77" height="78" frameX="-1" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0026" x="0" y="156" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0027" x="78" y="156" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0028" x="156" y="156" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="Bonus0029" x="234" y="156" width="78" height="78" frameX="0" frameY="0" frameWidth="79" frameHeight="78"/>
+	<SubTexture name="ObstacleLave0000" x="312" y="156" width="78" height="81" pivotX="0" pivotY="9.5"/>
+	<SubTexture name="ObstacleLave0001" x="312" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0002" x="312" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0003" x="312" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0004" x="312" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0005" x="390" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0006" x="390" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0007" x="390" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0008" x="390" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0009" x="390" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleLave0010" x="468" y="156" width="78" height="68" frameX="0" frameY="-13" frameWidth="78" frameHeight="81"/>
+	<SubTexture name="ObstacleLave0011" x="468" y="156" width="78" height="68" frameX="0" frameY="-13" frameWidth="78" frameHeight="81"/>
+	<SubTexture name="ObstacleLave0012" x="468" y="156" width="78" height="68" frameX="0" frameY="-13" frameWidth="78" frameHeight="81"/>
+	<SubTexture name="ObstacleLave0013" x="468" y="156" width="78" height="68" frameX="0" frameY="-13" frameWidth="78" frameHeight="81"/>
+	<SubTexture name="ObstacleLave0014" x="468" y="156" width="78" height="68" frameX="0" frameY="-13" frameWidth="78" frameHeight="81"/>
+	<SubTexture name="ObstacleLave0015" x="312" y="156" width="78" height="81"/>
+	<SubTexture name="ObstacleRoche0000" x="546" y="156" width="75" height="76" pivotX="0" pivotY="0"/>
+	<SubTexture name="ObstacleRoche0001" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0002" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0003" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0004" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0005" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0006" x="621" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0007" x="696" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0008" x="771" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0009" x="846" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0010" x="921" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0011" x="0" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0012" x="75" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0013" x="150" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0014" x="225" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0015" x="300" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0016" x="375" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0017" x="450" y="237" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0018" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleRoche0019" x="546" y="156" width="75" height="76"/>
+	<SubTexture name="ObstacleSormVariante0000" x="525" y="237" width="74" height="67" pivotX="1.65" pivotY="-2.5" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0001" x="599" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0002" x="673" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0003" x="747" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0004" x="821" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0005" x="895" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0006" x="0" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0007" x="74" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0008" x="148" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0009" x="222" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0010" x="296" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0011" x="370" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0012" x="444" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0013" x="518" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0014" x="592" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0015" x="666" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0016" x="740" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleSormVariante0017" x="814" y="313" width="74" height="57" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0018" x="888" y="313" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0019" x="0" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0020" x="74" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0021" x="148" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0022" x="222" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0023" x="296" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0024" x="370" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0025" x="444" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0026" x="518" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0027" x="592" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0028" x="666" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0029" x="740" y="388" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0030" x="814" y="388" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0031" x="888" y="388" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0032" x="0" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0033" x="74" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0034" x="148" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0035" x="222" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0036" x="296" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0037" x="370" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0038" x="444" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleSormVariante0039" x="518" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0000" x="525" y="237" width="74" height="67" pivotX="1.65" pivotY="-2.5" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0001" x="599" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0002" x="673" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0003" x="747" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0004" x="821" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0005" x="895" y="237" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0006" x="0" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0007" x="74" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0008" x="148" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0009" x="222" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0010" x="296" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0011" x="370" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0012" x="444" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0013" x="518" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0014" x="592" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0015" x="666" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0016" x="740" y="313" width="74" height="75"/>
+	<SubTexture name="ObstacleStorm0017" x="814" y="313" width="74" height="57" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0018" x="888" y="313" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0019" x="0" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0020" x="74" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0021" x="148" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0022" x="222" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0023" x="296" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0024" x="370" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0025" x="444" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0026" x="518" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0027" x="592" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0028" x="666" y="388" width="74" height="70" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0029" x="740" y="388" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0030" x="814" y="388" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0031" x="888" y="388" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0032" x="0" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0033" x="74" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0034" x="148" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0035" x="222" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0036" x="296" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0037" x="370" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0038" x="444" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="ObstacleStorm0039" x="518" y="458" width="74" height="67" frameX="0" frameY="0" frameWidth="74" frameHeight="75"/>
+	<SubTexture name="Piece0000" x="592" y="458" width="50" height="50" pivotX="-14.4" pivotY="-7.45" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0001" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0002" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0003" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0004" x="642" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0005" x="692" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0006" x="742" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0007" x="792" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0008" x="842" y="458" width="50" height="51" frameX="0" frameY="-1" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0009" x="892" y="458" width="50" height="51" frameX="0" frameY="-1" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0010" x="942" y="458" width="50" height="52"/>
+	<SubTexture name="Piece0011" x="0" y="525" width="50" height="52"/>
+	<SubTexture name="Piece0012" x="50" y="525" width="50" height="52"/>
+	<SubTexture name="Piece0013" x="100" y="525" width="50" height="51" frameX="0" frameY="-1" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0014" x="150" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0015" x="200" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0016" x="250" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0017" x="300" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0018" x="350" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0019" x="400" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0020" x="450" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0021" x="500" y="525" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0022" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0023" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0024" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0025" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+	<SubTexture name="Piece0026" x="592" y="458" width="50" height="50" frameX="0" frameY="-2" frameWidth="50" frameHeight="52"/>
+</TextureAtlas>

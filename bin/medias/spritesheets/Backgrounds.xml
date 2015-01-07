@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Backgrounds.png">
+	<!-- Created with Adobe Flash Professional version 14.0.0.110 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="BgPauseGameOver" x="0" y="2322" width="869" height="648" pivotX="0" pivotY="0"/>
+	<SubTexture name="Fond" x="0" y="0" width="1280" height="768" pivotX="0" pivotY="0"/>
+	<SubTexture name="FondPseudo" x="1573" y="2322" width="355" height="121" pivotX="0.05" pivotY="0"/>
+	<SubTexture name="PlanSecond" x="0" y="773" width="1280" height="333" pivotX="0" pivotY="211.85"/>
+	<SubTexture name="PlanThird" x="0" y="1111" width="1280" height="503" pivotX="-1510.2" pivotY="-32.05"/>
+	<SubTexture name="PlanFarest" x="0" y="1619" width="1280" height="698" pivotX="0" pivotY="0"/>
+	<SubTexture name="bg-top10" x="874" y="2322" width="694" height="635" pivotX="0" pivotY="0"/>
+</TextureAtlas>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="RaptorFly.png">
+	<!-- Created with Adobe Flash Professional version 14.0.0.110 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="FlyRun0000" x="0" y="0" width="176" height="102" pivotX="-5.05" pivotY="9.7" frameX="-2" frameY="0" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0001" x="176" y="0" width="177" height="103" frameX="-2" frameY="0" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0002" x="0" y="103" width="177" height="102" frameX="-2" frameY="-1" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0003" x="177" y="103" width="177" height="102" frameX="-2" frameY="-3" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0004" x="0" y="205" width="177" height="101" frameX="-2" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0005" x="177" y="205" width="177" height="101" frameX="-2" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0006" x="0" y="306" width="178" height="100" frameX="-1" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0007" x="178" y="306" width="178" height="99" frameX="-1" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0008" x="0" y="406" width="177" height="99" frameX="-1" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0009" x="177" y="406" width="178" height="99" frameX="0" frameY="-4" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0010" x="177" y="406" width="178" height="99" frameX="0" frameY="-3" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0011" x="0" y="505" width="177" height="100" frameX="0" frameY="-3" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0012" x="177" y="505" width="177" height="100" frameX="0" frameY="-3" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0013" x="0" y="605" width="178" height="100" frameX="0" frameY="-4" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0014" x="178" y="605" width="177" height="101" frameX="-1" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0015" x="178" y="605" width="177" height="101" frameX="-2" frameY="-7" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0016" x="0" y="706" width="177" height="101" frameX="-2" frameY="-5" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0017" x="177" y="706" width="177" height="101" frameX="-2" frameY="-3" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0018" x="0" y="807" width="177" height="101" frameX="-2" frameY="-2" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0019" x="177" y="807" width="177" height="103" frameX="-2" frameY="0" frameWidth="179" frameHeight="107"/>
+	<SubTexture name="FlyRun0020" x="0" y="0" width="176" height="102" frameX="-2" frameY="0" frameWidth="179" frameHeight="107"/>
+</TextureAtlas>
