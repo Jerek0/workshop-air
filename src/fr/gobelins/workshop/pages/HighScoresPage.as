@@ -32,7 +32,7 @@ public class HighScoresPage extends APage {
             // Launch the request for the TOP 10 highscores as soon as the highscores page is asked
             var urlRequest : URLRequest = new URLRequest("http://www.cordechasse.fr/gobelins/CRM14/scripts/getTopScores.php");
             var requestVars:URLVariables = new URLVariables();
-            requestVars.project_name = "RaptoRun";
+            requestVars.project_name = Settings.HIGHSCORES_TABLE;
             requestVars.max_row = "10";
             urlRequest.data = requestVars;
             urlRequest.method = URLRequestMethod.POST;

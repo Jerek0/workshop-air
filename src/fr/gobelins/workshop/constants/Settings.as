@@ -44,6 +44,8 @@ public class Settings {
 
     public static var show_tutorial:Boolean = true;
 
+    public static const HIGHSCORES_TABLE:String = "RaptoRun2";
+
     public function Settings() {
     }
 }

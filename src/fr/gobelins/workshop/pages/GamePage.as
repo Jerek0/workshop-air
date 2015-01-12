@@ -195,7 +195,7 @@ package fr.gobelins.workshop.pages {
 
                 var urlRequest:URLRequest = new URLRequest("http://www.cordechasse.fr/gobelins/CRM14/scripts/setScore.php");
                 var requestVars:URLVariables = new URLVariables();
-                requestVars.project_name = "RaptoRun";
+                requestVars.project_name = Settings.HIGHSCORES_TABLE;
                 requestVars.user_name = _pseudoInput.text;
                 requestVars.score = _game.score;
                 urlRequest.data = requestVars;

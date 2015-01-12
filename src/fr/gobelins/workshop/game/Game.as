@@ -92,7 +92,7 @@ import starling.display.Sprite;
             levelLoader.addEventListener(LevelLoaderEvent.LEVEL_LOADED, function(event:LevelLoaderEvent):void {
                 _map.level = event.level;
                 addChildAt(_map, 4);
-                _map.y = 80;
+                _map.y = stage.stageHeight - (8 * 76) - 80;
                 _map.x = stage.stageWidth+200;
                 _map.player = _character;
                 _map.addEventListener(CollisionEvent.COLLISION, _onCollision);
