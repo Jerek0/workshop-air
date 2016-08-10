@@ -3,6 +3,7 @@
 
 RaptoRun
 ============
+_Graphisme : [@RomainPSD](https://twitter.com/RomainPSD)_
 
 Speedrunner réalisé dans le cadre d'un workshop gobelins de 1ère année. Développé en AIR avec Starling.
 
